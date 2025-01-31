@@ -8,7 +8,10 @@
 		"url": "https://github.com/MagicMirrorOrg/MagicMirror/issues"
 	},
 	"dependencies": {
+
+		"@fontsource/roboto-condensed": "^5.0.16"
+
 		"@fontsource/roboto": "^5.0.13",
-		"@fontsource/roboto-condensed": "^5.0.14"
+		
 	}
 }
