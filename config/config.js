@@ -52,6 +52,10 @@ let config = {
 			position: "top_left"
 		},
 		{
+            module: "calendar_monthly",
+            position: "top_left"
+        },
+		{
 			module: "compliments",
 			position: "lower_third"
 		},
