@@ -1,0 +1,12 @@
+[submodule "modules/calendar_monthly"]
+	path = modules/calendar_monthly
+	url = https://github.com/KirAsh4/calendar_monthly.git
+[submodule "modules/MMM-Admin-Interface"]
+	path = modules/MMM-Admin-Interface
+	url = https://github.com/ItayXD/MMM-Admin-Interface.git
+[submodule "modules/internet-monitor"]
+	path = modules/internet-monitor
+	url = https://github.com/ronny3050/internet-monitor.git
+[submodule "modules/mm-hsl-timetable"]
+	path = modules/mm-hsl-timetable
+	url = https://github.com/ZakarFin/mm-hsl-timetable.git
