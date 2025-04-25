@@ -46,10 +46,10 @@
 	},
 	"homepage": "https://magicmirror.builders",
 	"devDependencies": {
-		"@stylistic/eslint-plugin": "^1.5.4",
+		"@stylistic/eslint-plugin": "^4.2.0",
 		"eslint-plugin-import": "^2.29.1",
 		"eslint-plugin-jest": "^28.11.0",
-		"eslint-plugin-jsdoc": "^48.0.4",
+		"eslint-plugin-jsdoc": "^50.6.11",
 		"eslint-plugin-package-json": "^0.21.1",
 		"eslint-plugin-unicorn": "^50.0.1",
 		"express-basic-auth": "^1.2.1",
@@ -59,14 +59,14 @@
 		"lint-staged": "^15.2.2",
 		"playwright": "^1.44.1",
 		"prettier": "^3.2.4",
-		"sinon": "^19.0.2",
+		"sinon": "^20.0.0",
 		"stylelint": "^16.2.0",
-		"stylelint-config-standard": "^37.0.0",
+		"stylelint-config-standard": "^38.0.0",
 		"stylelint-prettier": "^5.0.0",
 		"suncalc": "^1.9.0"
 	},
 	"optionalDependencies": {
-		"electron": "^30.0.9"
+		"electron": "^35.2.1"
 	},
 	"dependencies": {
 		"ansis": "^3.10.0",
