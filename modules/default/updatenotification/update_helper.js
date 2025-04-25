@@ -1,9 +1,11 @@
-const Exec = require("child_process").exec;
-const Spawn = require("child_process").spawn;
-const commandExists = require("command-exists");
+const Exec = require("node:child_process").exec;
+const Spawn = require("node:child_process").spawn;
+const fs = require("node:fs");
+
 const Log = require("logger");
 
-/* class Updater
+/*
+ * class Updater
  * Allow to self updating 3rd party modules from command defined in config
  *
  * [constructor] read value in config:
@@ -45,8 +47,8 @@ class Updater {
 		this.autoRestart = config.updateAutorestart;
 		this.moduleList = {};
 		this.updating = false;
-		this.usePM2 = false;
-		this.PM2 = null;
+		this.usePM2 = false; // don't use pm2 by default
+		this.PM2Id = null; // pm2 process number
 		this.version = global.version;
 		this.root_path = global.root_path;
 		Log.info("updatenotification: Updater Class Loaded!");
@@ -83,13 +85,15 @@ class Updater {
 		return updater;
 	}
 
-	// module updater with his proper command
-	// return object as result
-	//{
-	//	error: <boolean>, // if error detected
-	//	updated: <boolean>, // if updated successfully
-	//	needRestart: <boolean> // if magicmirror restart required
-	//};
+	/*
+	 *  module updater with his proper command
+	 *  return object as result
+	 * {
+	 * 	error: <boolean>, // if error detected
+	 * 	updated: <boolean>, // if updated successfully
+	 * 	needRestart: <boolean> // if magicmirror restart required
+	 * };
+	 */
 	updateProcess (module) {
 		let Result = {
 			error: false,
@@ -135,10 +139,11 @@ class Updater {
 		else this.npmRestart();
 	}
 
-	// restart MagicMiror with "pm2"
+	// restart MagicMiror with "pm2": use PM2Id for restart it
 	pm2Restart () {
 		Log.info("updatenotification: PM2 will restarting MagicMirror...");
-		Exec(`pm2 restart ${this.PM2}`, (err, std, sde) => {
+		const pm2 = require("pm2");
+		pm2.restart(this.PM2Id, (err, proc) => {
 			if (err) {
 				Log.error("updatenotification:[PM2] restart Error", err);
 			}
@@ -151,7 +156,7 @@ class Updater {
 		const out = process.stdout;
 		const err = process.stderr;
 		const subprocess = Spawn("npm start", { cwd: this.root_path, shell: true, detached: true, stdio: ["ignore", out, err] });
-		subprocess.unref();
+		subprocess.unref(); // detach the newly launched process from the master process
 		process.exit();
 	}
 
@@ -159,53 +164,50 @@ class Updater {
 	check_PM2_Process () {
 		Log.info("updatenotification: Checking PM2 using...");
 		return new Promise((resolve) => {
-			commandExists("pm2")
-				.then(async () => {
-					var PM2_List = await this.PM2_GetList();
-					if (!PM2_List) {
+			if (fs.existsSync("/.dockerenv")) {
+				Log.info("updatenotification: Running in docker container, not using PM2 ...");
+				resolve(false);
+				return;
+			}
+
+			if (process.env.unique_id === undefined) {
+				Log.info("updatenotification: [PM2] You are not using pm2");
+				resolve(false);
+				return;
+			}
+
+			Log.debug(`updatenotification: [PM2] Search for pm2 id: ${process.env.pm_id} -- name: ${process.env.name} -- unique_id: ${process.env.unique_id}`);
+
+			const pm2 = require("pm2");
+			pm2.connect((err) => {
+				if (err) {
+					Log.error("updatenotification: [PM2]", err);
+					resolve(false);
+					return;
+				}
+				pm2.list((err, list) => {
+					if (err) {
 						Log.error("updatenotification: [PM2] Can't get process List!");
-						this.usePM2 = false;
 						resolve(false);
 						return;
 					}
-					PM2_List.forEach((pm) => {
-						if (pm.pm2_env.version === this.version && pm.pm2_env.status === "online" && pm.pm2_env.PWD.includes(this.root_path)) {
-							this.PM2 = pm.name;
+					list.forEach((pm) => {
+						Log.debug(`updatenotification: [PM2] found pm2 process id: ${pm.pm_id} -- name: ${pm.name} -- unique_id: ${pm.pm2_env.unique_id}`);
+						if (pm.pm2_env.status === "online" && process.env.name === pm.name && +process.env.pm_id === +pm.pm_id && process.env.unique_id === pm.pm2_env.unique_id) {
+							this.PM2Id = pm.pm_id;
 							this.usePM2 = true;
-							Log.info("updatenotification: You are using pm2 with", this.PM2);
+							Log.info(`updatenotification: [PM2] You are using pm2 with id: ${this.PM2Id} (${pm.name})`);
 							resolve(true);
+						} else {
+							Log.debug(`updatenotification: [PM2] pm2 process id: ${pm.pm_id} don't match...`);
 						}
 					});
-					if (!this.PM2) {
-						Log.info("updatenotification: You are not using pm2");
-						this.usePM2 = false;
+					pm2.disconnect();
+					if (!this.usePM2) {
+						Log.info("updatenotification: [PM2] You are not using pm2");
 						resolve(false);
 					}
-				})
-				.catch(() => {
-					Log.info("updatenotification: You are not using pm2");
-					this.usePM2 = false;
-					resolve(false);
 				});
-		});
-	}
-
-	// Get the list of pm2 process
-	PM2_GetList () {
-		return new Promise((resolve) => {
-			Exec("pm2 jlist", (err, std, sde) => {
-				if (err) {
-					resolve(null);
-					return;
-				}
-				try {
-					let result = JSON.parse(std);
-					resolve(result);
-				} catch (e) {
-					Log.error("updatenotification: [PM2] can't GetList!");
-					Log.debug("updatenotification: [PM2] GetList is not an JSON format", e);
-					resolve(null);
-				}
 			});
 		});
 	}
@@ -218,7 +220,7 @@ class Updater {
 
 	// search update module command
 	applyCommand (module) {
-		if (this.isMagicMirror(module.module)) return null;
+		if (this.isMagicMirror(module.module) || !this.updates.length) return null;
 		let command = null;
 		this.updates.forEach((updater) => {
 			if (updater[module]) command = updater[module];

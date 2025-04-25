@@ -1,10 +1,3 @@
-/* MagicMirror²
- * AnimateCSS System from https://animate.style/
- * by @bugsounet
- * for Michael Teeuw https://michaelteeuw.nl
- * MIT Licensed.
- */
-
 /* enumeration of animations in Array **/
 const AnimateCSSIn = [
 	// Attention seekers
@@ -162,3 +155,4 @@ function removeAnimateCSS (element, animation) {
 	node.classList.remove("animate__animated", animationName);
 	node.style.removeProperty("--animate-duration");
 }
+if (typeof window === "undefined") module.exports = { AnimateCSSIn, AnimateCSSOut };

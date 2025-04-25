@@ -1,14 +1,7 @@
 /* global WeatherProvider, WeatherObject */
 
-/* MagicMirror²
- * Module: Weather
- * Provider: Yr.no
- *
- * By Magnus Marthinsen
- * MIT Licensed
- *
+/*
  * This class is a provider for Yr.no, a norwegian weather service.
- *
  * Terms of service: https://developer.yr.no/doc/TermsOfService/
  */
 WeatherProvider.register("yr", {
@@ -75,8 +68,11 @@ WeatherProvider.register("yr", {
 
 	getWeatherData () {
 		return new Promise((resolve, reject) => {
-			// If a user has several Yr-modules, for instance one current and one forecast, the API calls must be synchronized across classes.
-			// This is to avoid multiple similar calls to the API.
+
+			/*
+			 * If a user has several Yr-modules, for instance one current and one forecast, the API calls must be synchronized across classes.
+			 * This is to avoid multiple similar calls to the API.
+			 */
 			let shouldWait = localStorage.getItem("yrIsFetchingWeatherData");
 			if (shouldWait) {
 				const checkForGo = setInterval(function () {
@@ -209,8 +205,11 @@ WeatherProvider.register("yr", {
 	},
 
 	getStellarData () {
-		// If a user has several Yr-modules, for instance one current and one forecast, the API calls must be synchronized across classes.
-		// This is to avoid multiple similar calls to the API.
+
+		/*
+		 * If a user has several Yr-modules, for instance one current and one forecast, the API calls must be synchronized across classes.
+		 * This is to avoid multiple similar calls to the API.
+		 */
 		return new Promise((resolve, reject) => {
 			let shouldWait = localStorage.getItem("yrIsFetchingStellarData");
 			if (shouldWait) {

@@ -1,11 +1,4 @@
-/* MagicMirror²
- * Node Helper: Calendar - CalendarFetcher
- *
- * By Michael Teeuw https://michaelteeuw.nl
- * MIT Licensed.
- */
-
-const https = require("https");
+const https = require("node:https");
 const ical = require("node-ical");
 const Log = require("logger");
 const NodeHelper = require("node_helper");
@@ -63,7 +56,7 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 
 				try {
 					data = ical.parseICS(responseData);
-					Log.debug(`parsed data=${JSON.stringify(data)}`);
+					Log.debug(`parsed data=${JSON.stringify(data, null, 2)}`);
 					events = CalendarFetcherUtils.filterEvents(data, {
 						excludedEvents,
 						includePastEvents,

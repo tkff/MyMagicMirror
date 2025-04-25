@@ -1,11 +1,5 @@
 /* global translations */
 
-/* MagicMirror²
- * Translator (l10n)
- *
- * By Christopher Fenner https://github.com/CFenner
- * MIT Licensed.
- */
 const Translator = (function () {
 
 	/**
@@ -21,14 +15,14 @@ const Translator = (function () {
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					// needs error handler try/catch at least
-					let fileinfo = null;
+					let fileInfo = null;
 					try {
-						fileinfo = JSON.parse(xhr.responseText);
+						fileInfo = JSON.parse(xhr.responseText);
 					} catch (exception) {
 						// nothing here, but don't die
 						Log.error(` loading json file =${file} failed`);
 					}
-					resolve(fileinfo);
+					resolve(fileInfo);
 				}
 			};
 			xhr.send(null);

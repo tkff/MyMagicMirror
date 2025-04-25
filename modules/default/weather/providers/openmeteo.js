@@ -1,22 +1,20 @@
 /* global WeatherProvider, WeatherObject */
 
-/* MagicMirror²
- * Module: Weather
- * Provider: Open-Meteo
- *
- * By Andrés Vanegas
- * MIT Licensed
- *
- * This class is a provider for Open-Meteo, based on Andrew Pometti's class
- * for Weatherbit.
+/*
+ * This class is a provider for Open-Meteo,
+ * see https://open-meteo.com/
  */
+
 // https://www.bigdatacloud.com/docs/api/free-reverse-geocode-to-city-api
 const GEOCODE_BASE = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 const OPEN_METEO_BASE = "https://api.open-meteo.com/v1";
 
 WeatherProvider.register("openmeteo", {
-	// Set the name of the provider.
-	// Not strictly required, but helps for debugging.
+
+	/*
+	 * Set the name of the provider.
+	 * Not strictly required, but helps for debugging.
+	 */
 	providerName: "Open-Meteo",
 
 	// Set the default config properties that is specific to this provider
@@ -246,17 +244,17 @@ WeatherProvider.register("openmeteo", {
 			.add(Math.max(0, Math.min(7, this.config.maxNumberOfDays)), "days")
 			.endOf("day");
 
-		params["start_date"] = startDate.format("YYYY-MM-DD");
+		params.start_date = startDate.format("YYYY-MM-DD");
 
 		switch (this.config.type) {
 			case "hourly":
 			case "daily":
 			case "forecast":
-				params["end_date"] = endDate.format("YYYY-MM-DD");
+				params.end_date = endDate.format("YYYY-MM-DD");
 				break;
 			case "current":
-				params["current_weather"] = true;
-				params["end_date"] = params["start_date"];
+				params.current_weather = true;
+				params.end_date = params.start_date;
 				break;
 			default:
 				// Failsafe
@@ -264,7 +262,7 @@ WeatherProvider.register("openmeteo", {
 		}
 
 		return Object.keys(params)
-			.filter((key) => (params[key] ? true : false))
+			.filter((key) => (!!params[key]))
 			.map((key) => {
 				switch (key) {
 					case "hourly":
@@ -404,14 +402,14 @@ WeatherProvider.register("openmeteo", {
 			currentWeather.windFromDirection = weather.winddirection_10m_dominant;
 			currentWeather.sunrise = weather.sunrise;
 			currentWeather.sunset = weather.sunset;
-			currentWeather.temperature = parseFloat((weather.apparent_temperature_max + weather.apparent_temperature_min) / 2);
-			currentWeather.minTemperature = parseFloat(weather.apparent_temperature_min);
-			currentWeather.maxTemperature = parseFloat(weather.apparent_temperature_max);
-			currentWeather.weatherType = this.convertWeatherType(weather.weathercode, currentWeather.isDayTime());
+			currentWeather.temperature = parseFloat((weather.temperature_2m_max + weather.temperature_2m_min) / 2);
+			currentWeather.minTemperature = parseFloat(weather.temperature_2m_min);
+			currentWeather.maxTemperature = parseFloat(weather.temperature_2m_max);
+			currentWeather.weatherType = this.convertWeatherType(weather.weathercode, true);
 			currentWeather.rain = parseFloat(weather.rain_sum);
 			currentWeather.snow = parseFloat(weather.snowfall_sum * 10);
 			currentWeather.precipitationAmount = parseFloat(weather.precipitation_sum);
-			currentWeather.precipitationProbability = parseFloat(weather.precipitation_probability);
+			currentWeather.precipitationProbability = parseFloat(weather.precipitation_hours * 100 / 24);
 			currentWeather.uv_index = parseFloat(weather.uv_index_max);
 
 			days.push(currentWeather);
@@ -426,7 +424,7 @@ WeatherProvider.register("openmeteo", {
 		const now = moment();
 
 		weathers.hourly.forEach((weather, i) => {
-			if ((hours.length === 0 && weather.time.hour() <= now.hour()) || hours.length >= this.config.maxEntries) {
+			if ((hours.length === 0 && weather.time <= now) || hours.length >= this.config.maxEntries) {
 				return;
 			}
 
@@ -438,9 +436,9 @@ WeatherProvider.register("openmeteo", {
 			currentWeather.windFromDirection = weather.winddirection_10m;
 			currentWeather.sunrise = weathers.daily[h].sunrise;
 			currentWeather.sunset = weathers.daily[h].sunset;
-			currentWeather.temperature = parseFloat(weather.apparent_temperature);
-			currentWeather.minTemperature = parseFloat(weathers.daily[h].apparent_temperature_min);
-			currentWeather.maxTemperature = parseFloat(weathers.daily[h].apparent_temperature_max);
+			currentWeather.temperature = parseFloat(weather.temperature_2m);
+			currentWeather.minTemperature = parseFloat(weathers.daily[h].temperature_2m_min);
+			currentWeather.maxTemperature = parseFloat(weathers.daily[h].temperature_2m_max);
 			currentWeather.weatherType = this.convertWeatherType(weather.weathercode, currentWeather.isDayTime());
 			currentWeather.humidity = parseFloat(weather.relativehumidity_2m);
 			currentWeather.rain = parseFloat(weather.rain);

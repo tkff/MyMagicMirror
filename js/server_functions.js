@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 const Log = require("logger");
 
 const startUp = new Date();
@@ -45,12 +45,12 @@ async function cors (req, res) {
 			url = match[1];
 
 			const headersToSend = getHeadersToSend(req.url);
-			const expectedRecievedHeaders = geExpectedRecievedHeaders(req.url);
+			const expectedReceivedHeaders = geExpectedReceivedHeaders(req.url);
 
 			Log.log(`cors url: ${url}`);
 			const response = await fetch(url, { headers: headersToSend });
 
-			for (const header of expectedRecievedHeaders) {
+			for (const header of expectedReceivedHeaders) {
 				const headerValue = response.headers.get(header);
 				if (header) res.set(header, headerValue);
 			}
@@ -89,16 +89,16 @@ function getHeadersToSend (url) {
  * @param {string} url - The url containing the expected headers from the response.
  * @returns {string[]} headers - The name of the expected headers.
  */
-function geExpectedRecievedHeaders (url) {
-	const expectedRecievedHeaders = ["Content-Type"];
-	const expectedRecievedHeadersMatch = new RegExp("expectedheaders=(.+?)(&|$)", "g").exec(url);
-	if (expectedRecievedHeadersMatch) {
-		const headers = expectedRecievedHeadersMatch[1].split(",");
+function geExpectedReceivedHeaders (url) {
+	const expectedReceivedHeaders = ["Content-Type"];
+	const expectedReceivedHeadersMatch = new RegExp("expectedheaders=(.+?)(&|$)", "g").exec(url);
+	if (expectedReceivedHeadersMatch) {
+		const headers = expectedReceivedHeadersMatch[1].split(",");
 		for (const header of headers) {
-			expectedRecievedHeaders.push(header);
+			expectedReceivedHeaders.push(header);
 		}
 	}
-	return expectedRecievedHeaders;
+	return expectedReceivedHeaders;
 }
 
 /**
@@ -109,6 +109,7 @@ function geExpectedRecievedHeaders (url) {
 function getHtml (req, res) {
 	let html = fs.readFileSync(path.resolve(`${global.root_path}/index.html`), { encoding: "utf8" });
 	html = html.replace("#VERSION#", global.version);
+	html = html.replace("#TESTMODE#", global.mmTestMode);
 
 	let configFile = "config/config.js";
 	if (typeof global.configuration_file !== "undefined") {
@@ -128,4 +129,30 @@ function getVersion (req, res) {
 	res.send(global.version);
 }
 
-module.exports = { cors, getConfig, getHtml, getVersion, getStartup };
+/**
+ * Gets environment variables needed in the browser.
+ * @returns {object} environment variables key: values
+ */
+function getEnvVarsAsObj () {
+	const obj = { modulesDir: `${config.foreignModulesDir}`, customCss: `${config.customCss}` };
+	if (process.env.MM_MODULES_DIR) {
+		obj.modulesDir = process.env.MM_MODULES_DIR.replace(`${global.root_path}/`, "");
+	}
+	if (process.env.MM_CUSTOMCSS_FILE) {
+		obj.customCss = process.env.MM_CUSTOMCSS_FILE.replace(`${global.root_path}/`, "");
+	}
+
+	return obj;
+}
+
+/**
+ * Gets environment variables needed in the browser.
+ * @param {Request} req - the request
+ * @param {Response} res - the result
+ */
+function getEnvVars (req, res) {
+	const obj = getEnvVarsAsObj();
+	res.send(obj);
+}
+
+module.exports = { cors, getConfig, getHtml, getVersion, getStartup, getEnvVars, getEnvVarsAsObj };

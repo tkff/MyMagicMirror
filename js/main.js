@@ -1,11 +1,5 @@
-/* global Loader, defaults, Translator, addAnimateCSS, removeAnimateCSS, AnimateCSSIn, AnimateCSSOut */
+/* global Loader, defaults, Translator, addAnimateCSS, removeAnimateCSS, AnimateCSSIn, AnimateCSSOut, modulePositions */
 
-/* MagicMirror²
- * Main System
- *
- * By Michael Teeuw https://michaelteeuw.nl
- * MIT Licensed.
- */
 const MM = (function () {
 	let modules = [];
 
@@ -292,9 +286,9 @@ const MM = (function () {
 				Log.debug(`${module.identifier} Force remove animateIn (in hide): ${module.hasAnimateIn}`);
 				module.hasAnimateIn = false;
 			}
-			// haveAnimateName for verify if we are using AninateCSS library
+			// haveAnimateName for verify if we are using AnimateCSS library
 			// we check AnimateCSSOut Array for validate it
-			// and finaly return the animate name or `null` (for default MM² animation)
+			// and finally return the animate name or `null` (for default MM² animation)
 			let haveAnimateName = null;
 			// check if have valid animateOut in module definition (module.data.animateOut)
 			if (module.data.animateOut && AnimateCSSOut.indexOf(module.data.animateOut) !== -1) haveAnimateName = module.data.animateOut;
@@ -363,7 +357,7 @@ const MM = (function () {
 			}
 		}
 
-		// Check if there are no more lockstrings set, or the force option is set.
+		// Check if there are no more lockStrings set, or the force option is set.
 		// Otherwise cancel show action.
 		if (module.lockStrings.length !== 0 && options.force !== true) {
 			Log.log(`Will not show ${module.name}. LockStrings active: ${module.lockStrings.join(",")}`);
@@ -386,7 +380,7 @@ const MM = (function () {
 
 		module.hidden = false;
 
-		// If forced show, clean current lockstrings.
+		// If forced show, clean current lockStrings.
 		if (module.lockStrings.length !== 0 && options.force === true) {
 			Log.log(`Force show of module: ${module.name}`);
 			module.lockStrings = [];
@@ -396,9 +390,9 @@ const MM = (function () {
 		if (moduleWrapper !== null) {
 			clearTimeout(module.showHideTimer);
 
-			// haveAnimateName for verify if we are using AninateCSS library
+			// haveAnimateName for verify if we are using AnimateCSS library
 			// we check AnimateCSSIn Array for validate it
-			// and finaly return the animate name or `null` (for default MM² animation)
+			// and finally return the animate name or `null` (for default MM² animation)
 			let haveAnimateName = null;
 			// check if have valid animateOut in module definition (module.data.animateIn)
 			if (module.data.animateIn && AnimateCSSIn.indexOf(module.data.animateIn) !== -1) haveAnimateName = module.data.animateIn;
@@ -456,10 +450,9 @@ const MM = (function () {
 	 * an ugly top margin. By using this function, the top bar will be hidden if the
 	 * update notification is not visible.
 	 */
-	const updateWrapperStates = function () {
-		const positions = ["top_bar", "top_left", "top_center", "top_right", "upper_third", "middle_center", "lower_third", "bottom_left", "bottom_center", "bottom_right", "bottom_bar", "fullscreen_above", "fullscreen_below"];
 
-		positions.forEach(function (position) {
+	const updateWrapperStates = function () {
+		modulePositions.forEach(function (position) {
 			const wrapper = selectWrapper(position);
 			const moduleWrappers = wrapper.getElementsByClassName("module");
 
@@ -615,7 +608,7 @@ const MM = (function () {
 					// if server startup time has changed (which means server was restarted)
 					// the client reloads the mm page
 					try {
-						const res = await fetch(`${location.protocol}//${location.host}/startup`);
+						const res = await fetch(`${location.protocol}//${location.host}${config.basePath}startup`);
 						const curr = await res.text();
 						if (startUp === "") startUp = curr;
 						if (startUp !== curr) {
@@ -673,7 +666,10 @@ const MM = (function () {
 			}
 
 			// Further implementation is done in the private method.
-			updateDom(module, updateOptions);
+			updateDom(module, updateOptions).then(function () {
+				// Once the update is complete and rendered, send a notification to the module that the DOM has been updated
+				sendNotification("MODULE_DOM_UPDATED", null, null, module);
+			});
 		},
 
 		/**
@@ -707,7 +703,10 @@ const MM = (function () {
 		showModule (module, speed, callback, options) {
 			// do not change module.hidden yet, only if we really show it later
 			showModule(module, speed, callback, options);
-		}
+		},
+
+		// Return all available module positions.
+		getAvailableModulePositions: modulePositions
 	};
 }());
 
