@@ -46,7 +46,7 @@
 	},
 	"homepage": "https://magicmirror.builders",
 	"devDependencies": {
-		"@stylistic/eslint-plugin": "^1.5.4",
+		"@stylistic/eslint-plugin": "^4.2.0",
 		"eslint-plugin-import": "^2.29.1",
 		"eslint-plugin-jest": "^28.11.0",
 		"eslint-plugin-jsdoc": "^50.6.11",
