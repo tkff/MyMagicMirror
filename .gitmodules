@@ -10,3 +10,9 @@
 [submodule "modules/mm-hsl-timetable"]
 	path = modules/mm-hsl-timetable
 	url = https://github.com/ZakarFin/mm-hsl-timetable.git
+[submodule "modules/MMM-SystemStats"]
+	path = modules/MMM-SystemStats
+	url = https://github.com/BenRoe/MMM-SystemStats.git
+[submodule "modules/MMM-Wallpaper"]
+	path = modules/MMM-Wallpaper
+	url = https://github.com/kolbyjack/MMM-Wallpaper.git
