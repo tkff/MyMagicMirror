@@ -1,0 +1,14 @@
+{
+	"LOADING":				"Laddar &hellip;",
+	"STARTINGMODULE":		"Startar modul",
+	"NOW":					"Nu",
+	"1MIN":					"En minut",
+	"MINUTES":				"minuter",
+	"LINEHEADER":			"Linje",
+	"DESTINATIONHEADER":	"Destination",
+	"PLATFORMHEADER":		"Platform",
+	"TIMECURRENT":			"Avgår",
+	"TIMENEXT":				"Nästa",
+	"ALERT":				"Obs",
+	"SETAPI":				"Ställ in API URL konfigurationen i modulen: "
+}
