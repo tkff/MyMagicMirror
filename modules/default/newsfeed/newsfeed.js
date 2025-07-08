@@ -38,7 +38,11 @@ Module.register("newsfeed", {
 
 	getUrlPrefix (item) {
 		if (item.useCorsProxy) {
+<<<<<<< HEAD
 			return `${location.protocol}//${location.host}${config.basePath}cors?url=`;
+=======
+			return `${location.protocol}//${location.host}/cors?url=`;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		} else {
 			return "";
 		}

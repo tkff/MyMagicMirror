@@ -8,7 +8,10 @@ const mockError = (err) => {
 		|| err.includes("ECONNRESET")
 		|| err.includes("socket hang up")
 		|| err.includes("exports is not defined")
+<<<<<<< HEAD
 		|| err.includes("module is not defined")
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		|| err.includes("write EPIPE")
 		|| err.includes("AggregateError")
 		|| err.includes("ERR_SOCKET_CONNECTION_TIMEOUT")

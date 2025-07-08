@@ -13,6 +13,7 @@ permissions:
   contents: read
 
 jobs:
+<<<<<<< HEAD
   code-style-check:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -33,12 +34,18 @@ jobs:
           npm run test:js
           npm run test:css
           npm run test:markdown
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       matrix:
+<<<<<<< HEAD
         node-version: [20.18.1, 20.x, 22.x, 23.x]
+=======
+        node-version: [18.x, 20.x, 21.x]
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v4
@@ -46,7 +53,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+<<<<<<< HEAD
           check-latest: true
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
           cache: "npm"
       - name: "Install dependencies"
         run: |
@@ -56,4 +66,10 @@ jobs:
           Xvfb :99 -screen 0 1024x768x16 &
           export DISPLAY=:99
           touch css/custom.css
+<<<<<<< HEAD
+=======
+          npm run test:prettier
+          npm run test:js
+          npm run test:css
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
           npm run test

@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 # Collaboration
 
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 This document describes how collaborators of this repository should work together.
 
 ## Pull Requests
@@ -7,7 +10,11 @@ This document describes how collaborators of this repository should work togethe
 - never merge your own PR's
 - never merge without someone having approved (approving and merging from same person is allowed)
 - wait for all approvals requested (or the author decides something different in the comments)
+<<<<<<< HEAD
 - merge to `master` only for releases or other urgent issues (update notification is only triggered by tags)
+=======
+- never merge to `master`, except for releases (because of update notification)
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - merges to master should be tagged with the "mastermerge" label so that the test runs through
 
 ## Issues
@@ -17,6 +24,7 @@ This document describes how collaborators of this repository should work togethe
 
 ## Releases
 
+<<<<<<< HEAD
 Are done by
 
 - [ ] @rejas
@@ -61,3 +69,6 @@ Are done by
 - [ ] close all issues with label `ready (coming with next release)`
 - [ ] release new documentation by merging `develop` on `master` in documentation repository
 - [ ] publish new version on [npm](https://www.npmjs.com/package/magicmirror)
+=======
+Are done by @rejas or @khassel.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67

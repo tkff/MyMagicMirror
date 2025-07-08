@@ -1,7 +1,11 @@
 /* global WeatherProvider, WeatherObject */
 
+<<<<<<< HEAD
 /*
  * This class is a provider for Yr.no, a norwegian weather service.
+=======
+/* This class is a provider for Yr.no, a norwegian weather service.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
  * Terms of service: https://developer.yr.no/doc/TermsOfService/
  */
 WeatherProvider.register("yr", {
@@ -68,11 +72,16 @@ WeatherProvider.register("yr", {
 
 	getWeatherData () {
 		return new Promise((resolve, reject) => {
+<<<<<<< HEAD
 
 			/*
 			 * If a user has several Yr-modules, for instance one current and one forecast, the API calls must be synchronized across classes.
 			 * This is to avoid multiple similar calls to the API.
 			 */
+=======
+			// If a user has several Yr-modules, for instance one current and one forecast, the API calls must be synchronized across classes.
+			// This is to avoid multiple similar calls to the API.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			let shouldWait = localStorage.getItem("yrIsFetchingWeatherData");
 			if (shouldWait) {
 				const checkForGo = setInterval(function () {
@@ -205,11 +214,16 @@ WeatherProvider.register("yr", {
 	},
 
 	getStellarData () {
+<<<<<<< HEAD
 
 		/*
 		 * If a user has several Yr-modules, for instance one current and one forecast, the API calls must be synchronized across classes.
 		 * This is to avoid multiple similar calls to the API.
 		 */
+=======
+		// If a user has several Yr-modules, for instance one current and one forecast, the API calls must be synchronized across classes.
+		// This is to avoid multiple similar calls to the API.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		return new Promise((resolve, reject) => {
 			let shouldWait = localStorage.getItem("yrIsFetchingStellarData");
 			if (shouldWait) {

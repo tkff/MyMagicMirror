@@ -28,7 +28,11 @@
 		});
 
 		// determine if "--use-tls"-flag was provided
+<<<<<<< HEAD
 		config.tls = process.argv.indexOf("--use-tls") > 0;
+=======
+		config["tls"] = process.argv.indexOf("--use-tls") > 0;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	}
 
 	/**

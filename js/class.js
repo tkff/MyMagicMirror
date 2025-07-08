@@ -1,7 +1,11 @@
 /* global Class, xyz */
 
+<<<<<<< HEAD
 /*
  * Simple JavaScript Inheritance
+=======
+/* Simple JavaScript Inheritance
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
  * By John Resig https://johnresig.com/
  *
  * Inspired by base2 and Prototype
@@ -23,10 +27,15 @@
 	Class.extend = function (prop) {
 		let _super = this.prototype;
 
+<<<<<<< HEAD
 		/*
 		 * Instantiate a base class (but only create the instance,
 		 * don't run the init constructor)
 		 */
+=======
+		// Instantiate a base class (but only create the instance,
+		// don't run the init constructor)
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		initializing = true;
 		const prototype = new this();
 		initializing = false;
@@ -45,6 +54,7 @@
 						return function () {
 							const tmp = this._super;
 
+<<<<<<< HEAD
 							/*
 							 * Add a new ._super() method that is the same method
 							 * but on the super-class
@@ -55,6 +65,14 @@
 							 * The method only need to be bound temporarily, so we
 							 * remove it when we're done executing
 							 */
+=======
+							// Add a new ._super() method that is the same method
+							// but on the super-class
+							this._super = _super[name];
+
+							// The method only need to be bound temporarily, so we
+							// remove it when we're done executing
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 							const ret = fn.apply(this, arguments);
 							this._super = tmp;
 

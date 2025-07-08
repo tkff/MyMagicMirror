@@ -53,8 +53,13 @@ describe("Weather module: Weather Hourly Forecast", () => {
 		});
 
 		describe("Shows precipitation probability", () => {
+<<<<<<< HEAD
 			const probabilities = [undefined, undefined, "12 %", "36 %", "44 %"];
 			for (const [index, pop] of probabilities.entries()) {
+=======
+			const propabilities = [undefined, undefined, "12 %", "36 %", "44 %"];
+			for (const [index, pop] of propabilities.entries()) {
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 				if (pop) {
 					it(`should render probability ${pop}`, async () => {
 						await expect(weatherFunc.getText(`.weather table.small tr:nth-child(${index + 1}) td.precipitation-prob`, pop)).resolves.toBe(true);

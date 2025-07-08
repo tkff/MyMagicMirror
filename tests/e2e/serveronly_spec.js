@@ -7,7 +7,11 @@ describe("App environment", () => {
 	beforeAll(async () => {
 		process.env.MM_CONFIG_FILE = "tests/configs/default.js";
 		serverProcess = await require("node:child_process").spawn("npm", ["run", "server"], { env: process.env, detached: true });
+<<<<<<< HEAD
 		// we have to wait until the server is started
+=======
+		// we have to wait until the server is startet
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		await delay(2000);
 	});
 	afterAll(async () => {

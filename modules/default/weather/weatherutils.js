@@ -30,7 +30,12 @@ const WeatherUtils = {
 		let convertedValue = value;
 		let conversionUnit = valueUnit;
 		if (outputUnit === "imperial") {
+<<<<<<< HEAD
 			convertedValue = this.convertPrecipitationToInch(value, valueUnit);
+=======
+			if (valueUnit && valueUnit.toLowerCase() === "cm") convertedValue = convertedValue * 0.3937007874;
+			else convertedValue = convertedValue * 0.03937007874;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			conversionUnit = "in";
 		} else {
 			conversionUnit = valueUnit ? valueUnit : "mm";
@@ -40,6 +45,7 @@ const WeatherUtils = {
 	},
 
 	/**
+<<<<<<< HEAD
 	 * Convert precipitation value into inch
 	 * @param {number} value the precipitation value for convert
 	 * @param {string} valueUnit can be 'mm' or 'cm'
@@ -51,6 +57,8 @@ const WeatherUtils = {
 	},
 
 	/**
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	 * Convert temp (from degrees C) into imperial or metric unit depending on
 	 * your config
 	 * @param {number} tempInC the temperature in celsius you want to convert
@@ -139,6 +147,7 @@ const WeatherUtils = {
 		}
 
 		return ((feelsLike - 32) * 5) / 9;
+<<<<<<< HEAD
 	},
 
 	/**
@@ -161,6 +170,8 @@ const WeatherUtils = {
 		}
 
 		return imperialWeatherObject;
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	}
 };
 

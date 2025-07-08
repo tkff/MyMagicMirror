@@ -2,6 +2,7 @@
 	"name": "magicmirror-fonts",
 	"version": "1.0.0",
 	"description": "Package for fonts use by MagicMirror² core.",
+<<<<<<< HEAD
 	"bugs": {
 		"url": "https://github.com/MagicMirrorOrg/MagicMirror/issues"
 	},
@@ -13,5 +14,18 @@
 	"dependencies": {
 		"@fontsource/roboto": "^5.1.1",
 		"@fontsource/roboto-condensed": "^5.1.1"
+=======
+	"repository": "MagicMirrorOrg/MagicMirror",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/MagicMirrorOrg/MagicMirror/issues"
+	},
+	"dependencies": {
+
+		"@fontsource/roboto-condensed": "^5.0.16"
+
+		"@fontsource/roboto": "^5.0.13",
+		
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	}
 }

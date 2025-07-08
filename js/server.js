@@ -8,7 +8,12 @@ const helmet = require("helmet");
 const socketio = require("socket.io");
 
 const Log = require("logger");
+<<<<<<< HEAD
 const { cors, getConfig, getHtml, getVersion, getStartup, getEnvVars } = require("./server_functions");
+=======
+const Utils = require("./utils");
+const { cors, getConfig, getHtml, getVersion, getStartup } = require("./server_functions");
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 /**
  * Server
@@ -72,7 +77,12 @@ function Server (config) {
 			app.use(helmet(config.httpHeaders));
 			app.use("/js", express.static(__dirname));
 
+<<<<<<< HEAD
 			let directories = ["/config", "/css", "/fonts", "/modules", "/vendor", "/translations", "/tests/configs", "/tests/mocks"];
+=======
+			// TODO add tests directory only when running tests?
+			const directories = ["/config", "/css", "/fonts", "/modules", "/vendor", "/translations", "/tests/configs", "/tests/mocks"];
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			for (const directory of directories) {
 				app.use(directory, express.static(path.resolve(global.root_path + directory)));
 			}
@@ -85,8 +95,11 @@ function Server (config) {
 
 			app.get("/startup", (req, res) => getStartup(req, res));
 
+<<<<<<< HEAD
 			app.get("/env", (req, res) => getEnvVars(req, res));
 
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			app.get("/", (req, res) => getHtml(req, res));
 
 			server.on("listening", () => {

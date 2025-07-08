@@ -3,10 +3,20 @@
 # Handle line endings automatically for files detected as text
 # and leave all files detected as binary untouched.
 * text=auto
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 #
 # The above will handle all files NOT found below
 # https://help.github.com/articles/dealing-with-line-endings/
 # https://github.com/Danimoth/gitattributes/blob/master/Web.gitattributes
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 # These files are text and should be normalized (Convert crlf => lf)
 *.php text
 *.css text
@@ -31,6 +41,10 @@ Dockerfile* text
 *.yaml text
 *.md text
 *.markdown text
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 # These files are binary and should be left untouched
 # (binary is a macro for -text -diff)
 *.png binary
@@ -48,5 +62,9 @@ Dockerfile* text
 *.zip binary
 *.7z binary
 *.ttf binary
+<<<<<<< HEAD
 *.pyc binary
 core filter=lfs diff=lfs merge=lfs -text
+=======
+*.pyc binary
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67

@@ -5,6 +5,7 @@
  * @param {boolean} useCorsProxy A flag to indicate
  * @param {Array.<{name: string, value:string}>} requestHeaders the HTTP headers to send
  * @param {Array.<string>} expectedResponseHeaders the expected HTTP headers to receive
+<<<<<<< HEAD
  * @param {string} basePath, default /
  * @returns {Promise} resolved when the fetch is done. The response headers is placed in a headers-property (provided the response does not already contain a headers-property).
  */
@@ -13,6 +14,15 @@ async function performWebRequest (url, type = "json", useCorsProxy = false, requ
 	let requestUrl;
 	if (useCorsProxy) {
 		requestUrl = getCorsUrl(url, requestHeaders, expectedResponseHeaders, basePath);
+=======
+ * @returns {Promise} resolved when the fetch is done. The response headers is placed in a headers-property (provided the response does not already contain a headers-property).
+ */
+async function performWebRequest (url, type = "json", useCorsProxy = false, requestHeaders = undefined, expectedResponseHeaders = undefined) {
+	const request = {};
+	let requestUrl;
+	if (useCorsProxy) {
+		requestUrl = getCorsUrl(url, requestHeaders, expectedResponseHeaders);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	} else {
 		requestUrl = url;
 		request.headers = getHeadersToSend(requestHeaders);
@@ -38,6 +48,7 @@ async function performWebRequest (url, type = "json", useCorsProxy = false, requ
  * @param {string} url the url to fetch from
  * @param {Array.<{name: string, value:string}>} requestHeaders the HTTP headers to send
  * @param {Array.<string>} expectedResponseHeaders the expected HTTP headers to receive
+<<<<<<< HEAD
  * @param {string} basePath, default /
  * @returns {string} to be used as URL when calling CORS-method on server.
  */
@@ -46,6 +57,15 @@ const getCorsUrl = function (url, requestHeaders, expectedResponseHeaders, baseP
 		throw new Error(`Invalid URL: ${url}`);
 	} else {
 		let corsUrl = `${location.protocol}//${location.host}${basePath}cors?`;
+=======
+ * @returns {string} to be used as URL when calling CORS-method on server.
+ */
+const getCorsUrl = function (url, requestHeaders, expectedResponseHeaders) {
+	if (!url || url.length < 1) {
+		throw new Error(`Invalid URL: ${url}`);
+	} else {
+		let corsUrl = `${location.protocol}//${location.host}/cors?`;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 		const requestHeaderString = getRequestHeaderString(requestHeaders);
 		if (requestHeaderString) corsUrl = `${corsUrl}sendheaders=${requestHeaderString}`;

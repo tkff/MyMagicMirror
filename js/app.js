@@ -9,6 +9,7 @@ const Log = require("logger");
 const Server = require(`${__dirname}/server`);
 const Utils = require(`${__dirname}/utils`);
 const defaultModules = require(`${__dirname}/../modules/default/defaultmodules`);
+<<<<<<< HEAD
 const { getEnvVarsAsObj } = require(`${__dirname}/server_functions`);
 
 // used to control fetch timeout for node_helpers
@@ -19,6 +20,11 @@ const fetch_timeout = process.env.mmFetchTimeout !== undefined ? process.env.mmF
 // Get version number.
 global.version = require(`${__dirname}/../package.json`).version;
 global.mmTestMode = process.env.mmTestMode === "true";
+=======
+
+// Get version number.
+global.version = require(`${__dirname}/../package.json`).version;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 Log.log(`Starting MagicMirror: v${global.version}`);
 
 // Log system information.
@@ -65,10 +71,13 @@ function App () {
 	async function loadConfig () {
 		Log.log("Loading config ...");
 		const defaults = require(`${__dirname}/defaults`);
+<<<<<<< HEAD
 		if (process.env.JEST_WORKER_ID !== undefined) {
 			// if we are running with jest
 			defaults.address = "0.0.0.0";
 		}
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 		// For this check proposed to TestSuite
 		// https://forum.magicmirror.builders/topic/1456/test-suite-for-magicmirror/8
@@ -123,6 +132,7 @@ function App () {
 			}
 		}
 
+<<<<<<< HEAD
 		require(`${global.root_path}/js/check_config.js`);
 
 		try {
@@ -131,6 +141,11 @@ function App () {
 			if (Object.keys(c).length === 0) {
 				Log.error("WARNING! Config file appears empty, maybe missing module.exports last line?");
 			}
+=======
+		try {
+			fs.accessSync(configFilename, fs.F_OK);
+			const c = require(configFilename);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			checkDeprecatedOptions(c);
 			return Object.assign(defaults, c);
 		} catch (e) {
@@ -168,6 +183,7 @@ function App () {
 	function loadModule (module) {
 		const elements = module.split("/");
 		const moduleName = elements[elements.length - 1];
+<<<<<<< HEAD
 		const env = getEnvVarsAsObj();
 		let moduleFolder = path.resolve(`${__dirname}/../${env.modulesDir}`, module);
 
@@ -184,6 +200,15 @@ function App () {
 		}
 
 		const moduleFile = `${moduleFolder}/${moduleName}.js`;
+=======
+		let moduleFolder = `${__dirname}/../modules/${module}`;
+
+		if (defaultModules.includes(moduleName)) {
+			moduleFolder = `${__dirname}/../modules/default/${module}`;
+		}
+
+		const moduleFile = `${moduleFolder}/${module}.js`;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 		try {
 			fs.accessSync(moduleFile, fs.R_OK);
@@ -201,6 +226,7 @@ function App () {
 			Log.log(`No helper found for module: ${moduleName}.`);
 		}
 
+<<<<<<< HEAD
 		// if the helper was found
 		if (loadHelper) {
 			let Module;
@@ -210,6 +236,10 @@ function App () {
 				Log.error(`Error when loading ${moduleName}:`, e.message);
 				return;
 			}
+=======
+		if (loadHelper) {
+			const Module = require(helperPath);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			let m = new Module();
 
 			if (m.requiresVersion) {
@@ -280,6 +310,7 @@ function App () {
 
 		Log.setLogLevel(config.logLevel);
 
+<<<<<<< HEAD
 		// get the used module positions
 		Utils.getModulePositions();
 
@@ -302,6 +333,15 @@ function App () {
 
 		setGlobalDispatcher(new Agent({ connect: { timeout: fetch_timeout } }));
 
+=======
+		let modules = [];
+		for (const module of config.modules) {
+			if (!modules.includes(module.module) && !module.disabled) {
+				modules.push(module.module);
+			}
+		}
+
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		await loadModules(modules);
 
 		httpServer = new Server(config);

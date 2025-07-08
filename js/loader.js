@@ -11,6 +11,7 @@ const Loader = (function () {
 	/* Private Methods */
 
 	/**
+<<<<<<< HEAD
 	 * Retrieve object of env variables.
 	 * @returns {object} with key: values as assembled in js/server_functions.js
 	 */
@@ -20,6 +21,8 @@ const Loader = (function () {
 	};
 
 	/**
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	 * Loops through all modules and requests start for every module.
 	 */
 	const startModules = async function () {
@@ -59,24 +62,35 @@ const Loader = (function () {
 	 * @returns {object[]} module data as configured in config
 	 */
 	const getAllModules = function () {
+<<<<<<< HEAD
 		const AllModules = config.modules.filter((module) => (module.module !== undefined) && (MM.getAvailableModulePositions.indexOf(module.position) > -1 || typeof (module.position) === "undefined"));
 		return AllModules;
+=======
+		return config.modules;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	};
 
 	/**
 	 * Generate array with module information including module paths.
 	 * @returns {object[]} Module information.
 	 */
+<<<<<<< HEAD
 	const getModuleData = async function () {
 		const modules = getAllModules();
 		const moduleFiles = [];
 		const envVars = await getEnvVars();
+=======
+	const getModuleData = function () {
+		const modules = getAllModules();
+		const moduleFiles = [];
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 		modules.forEach(function (moduleData, index) {
 			const module = moduleData.module;
 
 			const elements = module.split("/");
 			const moduleName = elements[elements.length - 1];
+<<<<<<< HEAD
 			let moduleFolder = `${envVars.modulesDir}/${module}`;
 
 			if (defaultModules.indexOf(moduleName) !== -1) {
@@ -89,6 +103,12 @@ const Loader = (function () {
 						moduleFolder = defaultModuleFolder;
 					}
 				}
+=======
+			let moduleFolder = `${config.paths.modules}/${module}`;
+
+			if (defaultModules.indexOf(moduleName) !== -1) {
+				moduleFolder = `${config.paths.modules}/default/${module}`;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			}
 
 			if (moduleData.disabled === true) {
@@ -184,7 +204,10 @@ const Loader = (function () {
 					};
 					script.onerror = function () {
 						Log.error("Error on loading script:", fileName);
+<<<<<<< HEAD
 						script.remove();
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 						resolve();
 					};
 					document.getElementsByTagName("body")[0].appendChild(script);
@@ -202,7 +225,10 @@ const Loader = (function () {
 					};
 					stylesheet.onerror = function () {
 						Log.error("Error on loading stylesheet:", fileName);
+<<<<<<< HEAD
 						stylesheet.remove();
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 						resolve();
 					};
 					document.getElementsByTagName("head")[0].appendChild(stylesheet);
@@ -217,9 +243,13 @@ const Loader = (function () {
 		 * Load all modules as defined in the config.
 		 */
 		async loadModules () {
+<<<<<<< HEAD
 			let moduleData = await getModuleData();
 			const envVars = await getEnvVars();
 			const customCss = envVars.customCss;
+=======
+			let moduleData = getModuleData();
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 			/**
 			 * @returns {Promise<void>} when all modules are loaded
@@ -234,7 +264,11 @@ const Loader = (function () {
 					// All modules loaded. Load custom.css
 					// This is done after all the modules so we can
 					// overwrite all the defined styles.
+<<<<<<< HEAD
 					await loadFile(customCss);
+=======
+					await loadFile(config.customCss);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					// custom.css loaded. Start all modules.
 					await startModules();
 				}
@@ -266,7 +300,11 @@ const Loader = (function () {
 				// This file is available in the vendor folder.
 				// Load it from this vendor folder.
 				loadedFiles.push(fileName.toLowerCase());
+<<<<<<< HEAD
 				return loadFile(`vendor/${vendor[fileName]}`);
+=======
+				return loadFile(`${config.paths.vendor}/${vendor[fileName]}`);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			}
 
 			// File not loaded yet.

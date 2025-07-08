@@ -19,7 +19,10 @@ const defaults = {
 	units: "metric",
 	zoom: 1,
 	customCss: "css/custom.css",
+<<<<<<< HEAD
 	foreignModulesDir: "modules",
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	// httpHeaders used by helmet, see https://helmetjs.github.io/. You can add other/more object values by overriding this in config.js,
 	// e.g. you need to add `frameguard: false` for embedding MagicMirror in another website, see https://github.com/MagicMirrorOrg/MagicMirror/issues/2847
 	httpHeaders: { contentSecurityPolicy: false, crossOriginOpenerPolicy: false, crossOriginEmbedderPolicy: false, crossOriginResourcePolicy: false, originAgentCluster: false },
@@ -70,10 +73,22 @@ const defaults = {
 			position: "bottom_bar",
 			classes: "xsmall dimmed",
 			config: {
+<<<<<<< HEAD
 				text: "https://magicmirror.builders/"
 			}
 		}
 	]
+=======
+				text: "www.michaelteeuw.nl"
+			}
+		}
+	],
+
+	paths: {
+		modules: "modules",
+		vendor: "vendor"
+	}
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 };
 
 /*************** DO NOT EDIT THE LINE BELOW ***************/

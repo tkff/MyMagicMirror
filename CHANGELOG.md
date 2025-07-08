@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -164,6 +165,23 @@ For more info, please read the following post: [A New Chapter for MagicMirror: T
 - [weather] `showHumidity` config is now a string describing where to show this element. Supported values: "wind", "temp", "feelslike", "below", "none". (#3330)
 - electron-rebuild test suite for electron and 3rd party modules compatibility (#3392)
 - Create MM² icon and attach it to electron process (#3407)
+=======
+# MagicMirror² Change Log
+
+All notable changes to this project will be documented in this file.
+This project adheres to [Semantic Versioning](https://semver.org/).
+
+❤️ **Donate:** Enjoying MagicMirror²? [Please consider a donation!](https://magicmirror.builders/#donate) With your help we can continue to improve the MagicMirror².
+
+## [2.27.0] - Develop Branch (unreleased)
+
+_This release is scheduled to be released on 2024-04-01._
+
+### Added
+
+- Output of system information to the console for troubleshooting (#3328 and #3337), ignore errors under aarch64
+- [chore] Add `eslint-plugin-package-json` to lint the `package.json` files
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 ### Updated
 
@@ -171,6 +189,7 @@ For more info, please read the following post: [A New Chapter for MagicMirror: T
 - Removing lodash dependency by replacing merge by spread operator (#3339)
 - Use node prefix for build-in modules (#3340)
 - Rework logging colors (#3350)
+<<<<<<< HEAD
 - Update pm2 to v5.3.1 with no allow-ghsas (#3364)
 - [core] Update husky and let lint-staged fix ESLint issues
 - [core] Update dependencies including electron to v29 (#3357) and node-ical
@@ -186,11 +205,23 @@ For more info, please read the following post: [A New Chapter for MagicMirror: T
   initial and recurring events to not show, and some event times to be off an hour. (#3291)
 - Skip changelog requirement when running tests for dependency updates (#3320)
 - Display precipitation probability when it is 0% instead of blank/empty (#3345)
+=======
+- Update electron to v28 and update other dependencies (#3357)
+- Update pm2 to v5.3.1 with no allow-ghsas (#3364)
+
+### Fixed
+
+- Correct apibase of weathergov weatherprovider to match documentation (#2926)
+- Worked around several issues in the RRULE library that were causing deleted calender events to still show, some
+  initial and recurring events to not show, and some event times to be off an hour. (#3291)
+- Skip changelog requirement when running tests for dependency updates (#3320)
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - [newsfeed] Suppress unsightly animation cases when there are 0 or 1 active news items (#3336)
 - [newsfeed] Always compute the feed item URL using the same helper function (#3336)
 - Ignore all custom css files (#3359)
 - [newsfeed] Fix newsfeed stall issue introduced by #3336 (#3361)
 - Changed `log.debug` to `log.log` in `app.js` where logLevel is not set because config is not loaded at this time (#3353)
+<<<<<<< HEAD
 - [calendar] deny fetch interval < 60000 and set 60000 in this case (prevent fetch loop failed) (#3382)
 - added message in case where config.js is missing the module.export line PR #3383
 - Fixed an issue where recurring events could extend past their recurrence end date (#3393)
@@ -198,13 +229,20 @@ For more info, please read the following post: [A New Chapter for MagicMirror: T
 - [core] Moved suncalc dependency to production from dev, as it is used by clock module
 - [compliments] Fix mirror not responding anymore when no compliments are to be shown (#3385)
 - [core] Fixed mastermerge workflow (#3415)
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 ### Deleted
 
 - Unneeded file headers (#3358)
+<<<<<<< HEAD
 - Removed codecov.yaml
 
 ## [2.26.0] - 2024-01-01
+=======
+
+## [2.26.0] - 01-01-2024
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 Thanks to: @bnitkin, @bugsounet, @dependabot, @jkriegshauser, @kaennchenstruggle, @KristjanESPERANTO and @Ybbet.
 
@@ -231,7 +269,11 @@ This release also marks the latest release by Michael Teeuw. For more info, plea
 - Update electron to v27 and update other dependencies as well as github actions
 - Update newsfeed: Use `html-to-text` instead of regex for transform description
 - Review ESLint config (#3269)
+<<<<<<< HEAD
 - Update dependencies
+=======
+- Updated dependencies
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Clock module: optionally display current moon phase in addition to rise/set times
 - electron is now per default started without gpu, if needed it must be enabled with new env var `ELECTRON_ENABLE_GPU=1` on startup (#3226)
 - Replace prettier by stylistic in ESLint config to lint JavaScript (and disable some rules for `config/config.js*` files)
@@ -247,8 +289,13 @@ This release also marks the latest release by Michael Teeuw. For more info, plea
 - Fix issue template (#3167)
 - Fix #3256 filter out bad results from rrule.between
 - Fix calendar events sometimes not respecting deleted events (#3250)
+<<<<<<< HEAD
 - Fix electron loadURL locally on Windows when address "0.0.0.0" (#2550)
 - Fix updatenotification (update_helper.js): catch error if response is not an JSON format (check PM2)
+=======
+- Fix electron loadurl locally on Windows when address "0.0.0.0" (#2550)
+- Fix updatanotification (update_helper.js): catch error if reponse is not an JSON format (check PM2)
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Fix missing typeof in calendar module
 - Fix style issues after prettier update
 - Fix calendar test (#3291) by moving "Exdate check" from e2e to electron to run on a Thursday
@@ -323,8 +370,13 @@ Special thanks to @khassel, @rejas and @sdetweil for taking over most (if not al
 - Added tests for serveronly
 - Set Timezone `Europe/Berlin` in unit tests (needed for new formatTime tests)
 - Added no-param-reassign eslint rule and fix warnings
+<<<<<<< HEAD
 - [updatenotification] Added `sendUpdatesNotifications` feature. Broadcast update with `UPDATES` notification to other modules
 - [updatenotification] Allow force scanning with `SCAN_UPDATES` notification from other modules
+=======
+- updatenotification: Added `sendUpdatesNotifications` feature. Broadcast update with `UPDATES` notification to other modules
+- updatenotification: allow force scanning with `SCAN_UPDATES` notification from other modules
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Added per-calendar fetchInterval
 
 ### Removed
@@ -333,7 +385,11 @@ Special thanks to @khassel, @rejas and @sdetweil for taking over most (if not al
 
 ### Updated
 
+<<<<<<< HEAD
 - [weather] Added support for precipitation probability with openmeteo weather-provider
+=======
+- Added support for precipitation probability with openmeteo weather-provider
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Update electron to v25.2 and other dependencies
 - Use node v20 in github workflow (replacing v14)
 - Refactor formatTime into common util function for default modules
@@ -506,7 +562,11 @@ Special thanks to the following contributors: @eouia, @khassel, @kolbyjack, @Kri
 
 ### Added
 
+<<<<<<< HEAD
 - Added a new config option `httpHeaders` used by helmet (see <https://helmetjs.github.io/>). You can now set own httpHeaders which will override the defaults in `js/defaults.js` which is useful e.g. if you want to embed MagicMirror into another website (solves #2847).
+=======
+- Added a new config option `httpHeaders` used by helmet (see https://helmetjs.github.io/). You can now set own httpHeaders which will override the defaults in `js/defauls.js` which is useful e.g. if you want to embed MagicMirror into annother website (solves #2847).
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Show endDate for calendar events when dateHeader is enabled and showEnd is set to true (#2192).
 - Added the notification emitting from the weather module on information updated.
 - Use recommended file extension for YAML files (#2864).
@@ -555,7 +615,11 @@ Special thanks to the following contributors: @10bias, @CFenner, @JHWelch, @k1rd
 - Fix minor console output issue for loading translations (#2814).
 - Don't adjust startDate for full day events if endDate is in the past.
 - Fix windspeed conversion error in openweathermap provider. (#2812)
+<<<<<<< HEAD
 - Fix conflicting parameter turning off showEnd for full day events. (#2629)
+=======
+- Fix conflicting parms turning off showEnd for full day events. (#2629)
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Fix regression, calendar.maximumEntries not used to filter calendar level entries (#2868)
 
 ## [2.18.0] - 2022-01-01
@@ -587,7 +651,11 @@ Special thanks to the following contributors: @AmpioRosso, @eouia, @fewieden, @j
 ### Fixed
 
 - Fixed wrong file `kr.json` to `ko.json`. Use language code 'ko' instead of 'kr' for Korean language.
+<<<<<<< HEAD
 - Fixed `feels_like` data from openweathermap's current weather being ignored (#2678).
+=======
+- Fixed `feels_like` data from openweathermaps current weather being ignored (#2678).
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Fixed chaotic newsfeed display after network connection loss thanks to @jalibu (#2638).
 - Fixed incorrect time zone correction of recurring full day events (#2632 and #2634).
 - Fixed e2e tests by increasing testTimeout.
@@ -624,7 +692,11 @@ Special thanks to the following contributors: @apiontek, @eouia, @jupadin, @khas
 - Updated github templates.
 - Actually test all js and css files when lint script is run.
 - Updated jsdocs and print warnings during testing too.
+<<<<<<< HEAD
 - Updated weathergov provider to try fetching not just current, but also forecast, when API URLs available.
+=======
+- Updated weathergov provider to try fetching not just current, but also foreacst, when API URLs available.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Refactored clock layout.
 - Refactored methods from weather-providers into weatherobject (isDaytime, updateSunTime).
 - Use of `logger.js` in jest tests.
@@ -974,7 +1046,11 @@ Special thanks to @sdetweil for all his great contributions!
 ### Updated
 
 - Updated lower bound of `lodash` and `helmet` dependencies for security patches.
+<<<<<<< HEAD
 - Updated compliments.js to handle newline in text, as text fields to not interpolate contents.
+=======
+- Updated compliments.js to handle newline in text, as textfields to not interpolate contents.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Updated raspberry.sh installer script to handle new platform issues, split node/npm, pm2, and screen saver changes.
 - Improve handling for armv6l devices, where electron support has gone away, add optional serveronly config option.
 - Improved run-start.sh to handle for serveronly mode, by choice, or when electron not available.
@@ -1195,7 +1271,11 @@ A huge, huge, huge thanks to user @fewieden for all his hard work on the new `we
 - Fixed close dates to be absolute, if no configured in the config.js - module Calendar
 - Fixed the updatenotification module message about new commits in the repository, so they can be correctly localized in singular and plural form.
 - Fix for weatherforecast rainfall rounding [#1374](https://github.com/MagicMirrorOrg/MagicMirror/issues/1374)
+<<<<<<< HEAD
 - Fix calendar parsing issue for Midori on Raspberry Pi Zero w, related to issue #694.
+=======
+- Fix calendar parsing issue for Midori on RasperryPi Zero w, related to issue #694.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Fix weather city ID link in sample config
 - Fixed issue with clientonly not updating with IP address and port provided on command line.
 
@@ -1250,7 +1330,11 @@ A huge, huge, huge thanks to user @fewieden for all his hard work on the new `we
 - Fixed weatherforecast to use dt_txt field instead of dt to handle timezones better
 - Newsfeed now remembers to show the description when `"ARTICLE_LESS_DETAILS"` is called if the user wants to always show the description. [#1282](https://github.com/MagicMirrorOrg/MagicMirror/issues/1282)
 - `clientonly/*.js` is now linted, and one linting error is fixed
+<<<<<<< HEAD
 - Fix issue #1196 by changing underscore to hyphen in locale id, in align with moment.js.
+=======
+- Fix issue #1196 by changing underscore to hyphen in locale id, in align with momentjs.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Fixed issue where heat index and wind chill were reporting incorrect values in Kelvin. [#1263](https://github.com/MagicMirrorOrg/MagicMirror/issues/1263)
 
 ### Updated
@@ -1275,7 +1359,11 @@ A huge, huge, huge thanks to user @fewieden for all his hard work on the new `we
 - Implement Danger.js to notify contributors when CHANGELOG.md is missing in PR.
 - Allow scrolling in full page article view of default newsfeed module with gesture events from [MMM-Gestures](https://github.com/thobach/MMM-Gestures)
 - Changed 'compliments.js' - Updated DOM if remote compliments are loaded instead of waiting one updateInterval to show custom compliments
+<<<<<<< HEAD
 - Automated unit tests utils, deprecated, translator, cloneObject(lockStrings)
+=======
+- Automated unit tests utils, deprecated, translator, cloneObject(lockstrings)
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Automated integration tests translations
 - Add advanced filtering to the excludedEvents configuration of the default calendar module
 - New currentweather module config option: `showFeelsLike`: Shows how it actually feels like. (wind chill or heat index)
@@ -1379,7 +1467,11 @@ A huge, huge, huge thanks to user @fewieden for all his hard work on the new `we
 ### Fixed
 
 - Fixed issue with incorrect alignment of analog clock when displayed in the center column of the MM.
+<<<<<<< HEAD
 - Fixed ipWhitelist behavior to make empty whitelist ([]) allow any and all hosts access to the MM.
+=======
+- Fixed ipWhitelist behaviour to make empty whitelist ([]) allow any and all hosts access to the MM.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Fixed issue with calendar module where 'excludedEvents' count towards 'maximumEntries'.
 - Fixed issue with calendar module where global configuration of maximumEntries was not overridden by calendar specific config (see module doc).
 - Fixed issue where `this.file(filename)` returns a path with two hashes.
@@ -1484,7 +1576,11 @@ A huge, huge, huge thanks to user @fewieden for all his hard work on the new `we
 - Added multiple calendar icon support.
 - Added tests for Translations, dev argument, version, dev console.
 - Added test anytime feature compliments module.
+<<<<<<< HEAD
 - Added test ipWhitelist configuration directive.
+=======
+- Added test ipwhitelist configuration directive.
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 - Added test for calendar module: default, basic-auth, backward compatibility, fail-basic-auth.
 - Added meta tags to support fullscreen mode on iOS (for server mode)
 - Added `ignoreOldItems` and `ignoreOlderThan` options to the News Feed module
@@ -1670,6 +1766,7 @@ It includes (but is not limited to) the following features:
 ### Initial release of MagicMirror
 
 This was part of the blogpost: [https://michaelteeuw.nl/post/83916869600/magic-mirror-part-vi-production-of-the](https://michaelteeuw.nl/post/83916869600/magic-mirror-part-vi-production-of-the)
+<<<<<<< HEAD
 
 [2.30.0]: https://github.com/MagicMirrorOrg/MagicMirror/compare/v2.29.0...v2.30.0
 [2.29.0]: https://github.com/MagicMirrorOrg/MagicMirror/compare/v2.28.0...v2.29.0
@@ -1717,3 +1814,5 @@ This was part of the blogpost: [https://michaelteeuw.nl/post/83916869600/magic-m
 [2.0.2]: https://github.com/MagicMirrorOrg/MagicMirror/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/MagicMirrorOrg/MagicMirror/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/MagicMirrorOrg/MagicMirror/releases/tag/v2.0.0
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67

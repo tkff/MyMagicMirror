@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 /*
  * MagicMirror² Test calendar exdate
+=======
+/* MagicMirror² Test calendar exdate
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
  *
  * By jkriegshauser
  * MIT Licensed.
@@ -8,8 +12,11 @@
  * See tests/electron/modules/calendar_spec.js
  */
 let config = {
+<<<<<<< HEAD
 	address: "0.0.0.0",
 	ipWhitelist: [],
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	timeFormat: 12,
 
 	modules: [
@@ -30,6 +37,13 @@ let config = {
 	]
 };
 
+<<<<<<< HEAD
+=======
+Date.now = () => {
+	return new Date("19 Oct 2023 12:30:00 GMT-07:00").valueOf();
+};
+
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 /*************** DO NOT EDIT THE LINE BELOW ***************/
 if (typeof module !== "undefined") {
 	module.exports = config;

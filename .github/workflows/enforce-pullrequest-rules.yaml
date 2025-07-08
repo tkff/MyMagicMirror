@@ -5,7 +5,11 @@
 name: "Enforce Pull-Request Rules"
 
 on:
+<<<<<<< HEAD
   pull_request_target:
+=======
+  pull_request:
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
     types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
 jobs:
@@ -19,10 +23,18 @@ jobs:
           changeLogPath: "CHANGELOG.md"
           skipLabels: "Skip Changelog"
       - name: "Enforce develop branch"
+<<<<<<< HEAD
         if: ${{ github.event.pull_request.base.ref == 'master' && !contains(github.event.pull_request.labels.*.name, 'mastermerge') }}
+=======
+        if: ${{ github.base_ref == 'master' && !contains(github.event.pull_request.labels.*.name, 'mastermerge') }}
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
         run: |
           echo "This PR is based against the master branch and not a release or hotfix."
           echo "Please don't do this. Switch the branch to 'develop'."
           exit 1
         env:
+<<<<<<< HEAD
           BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+=======
+          BASE_BRANCH: ${{ github.base_ref }}
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67

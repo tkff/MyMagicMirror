@@ -43,6 +43,7 @@ describe("Compliments module", () => {
 				await expect(doTest(["Happy new year!"])).resolves.toBe(true);
 			});
 		});
+<<<<<<< HEAD
 
 		describe("Test only custom date events shown with new property", () => {
 			it("shows 'Special day message' on May 6", async () => {
@@ -95,5 +96,7 @@ describe("Compliments module", () => {
 				await expect(doTest(["test in morning"])).resolves.toBe(true);
 			});
 		});
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	});
 });

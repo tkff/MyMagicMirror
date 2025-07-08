@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 /* global Cron */
 
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 Module.register("compliments", {
 	// Module config defaults.
 	defaults: {
@@ -12,12 +15,16 @@ Module.register("compliments", {
 		},
 		updateInterval: 30000,
 		remoteFile: null,
+<<<<<<< HEAD
 		remoteFileRefreshInterval: 0,
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		fadeSpeed: 4000,
 		morningStartTime: 3,
 		morningEndTime: 12,
 		afternoonStartTime: 12,
 		afternoonEndTime: 17,
+<<<<<<< HEAD
 		random: true,
 		specialDayUnique: false
 	},
@@ -33,6 +40,17 @@ Module.register("compliments", {
 	// Define required scripts.
 	getScripts () {
 		return ["croner.js", "moment.js"];
+=======
+		random: true
+	},
+	lastIndexUsed: -1,
+	// Set currentweather from module
+	currentWeatherType: "",
+
+	// Define required scripts.
+	getScripts () {
+		return ["moment.js"];
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	},
 
 	// Define start sequence.
@@ -45,6 +63,7 @@ Module.register("compliments", {
 			const response = await this.loadComplimentFile();
 			this.config.compliments = JSON.parse(response);
 			this.updateDom();
+<<<<<<< HEAD
 			if (this.config.remoteFileRefreshInterval !== 0) {
 				if ((this.config.remoteFileRefreshInterval >= this.refreshMinimumDelay) || window.mmTestMode === "true") {
 					setInterval(async () => {
@@ -101,6 +120,14 @@ Module.register("compliments", {
 
 		const secondsDelta = (nextRunTime - adjustedTimestamp) / 1000;
 		return secondsDelta;
+=======
+		}
+
+		// Schedule update timer.
+		setInterval(() => {
+			this.updateDom(this.config.fadeSpeed);
+		}, this.config.updateInterval);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	},
 
 	/**
@@ -109,7 +136,11 @@ Module.register("compliments", {
 	 * @returns {number} a random index of given array
 	 */
 	randomIndex (compliments) {
+<<<<<<< HEAD
 		if (compliments.length <= 1) {
+=======
+		if (compliments.length === 1) {
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			return 0;
 		}
 
@@ -133,9 +164,14 @@ Module.register("compliments", {
 	 * @returns {string[]} array with compliments for the time of the day.
 	 */
 	complimentArray () {
+<<<<<<< HEAD
 		const now = moment();
 		const hour = now.hour();
 		const date = now.format("YYYY-MM-DD");
+=======
+		const hour = moment().hour();
+		const date = moment().format("YYYY-MM-DD");
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		let compliments = [];
 
 		// Add time of day compliments
@@ -150,16 +186,20 @@ Module.register("compliments", {
 		// Add compliments based on weather
 		if (this.currentWeatherType in this.config.compliments) {
 			Array.prototype.push.apply(compliments, this.config.compliments[this.currentWeatherType]);
+<<<<<<< HEAD
 			// if the predefine list doesn't include it (yet)
 			if (!this.pre_defined_types.includes(this.currentWeatherType)) {
 				// add it
 				this.pre_defined_types.push(this.currentWeatherType);
 			}
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		}
 
 		// Add compliments for anytime
 		Array.prototype.push.apply(compliments, this.config.compliments.anytime);
 
+<<<<<<< HEAD
 		// get the list of just date entry keys
 		let temp_list = Object.keys(this.config.compliments).filter((k) => {
 			if (this.pre_defined_types.includes(k)) return false;
@@ -195,6 +235,15 @@ Module.register("compliments", {
 			Array.prototype.push.apply(compliments, date_compliments);
 		}
 
+=======
+		// Add compliments for special days
+		for (let entry in this.config.compliments) {
+			if (new RegExp(entry).test(date)) {
+				Array.prototype.push.apply(compliments, this.config.compliments[entry]);
+			}
+		}
+
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		return compliments;
 	},
 
@@ -205,6 +254,7 @@ Module.register("compliments", {
 	async loadComplimentFile () {
 		const isRemote = this.config.remoteFile.indexOf("http://") === 0 || this.config.remoteFile.indexOf("https://") === 0,
 			url = isRemote ? this.config.remoteFile : this.file(this.config.remoteFile);
+<<<<<<< HEAD
 		// because we may be fetching the same url,
 		// we need to force the server to not give us the cached result
 		// create an extra property (ignored by the server handler) just so the url string is different
@@ -217,6 +267,10 @@ Module.register("compliments", {
 		} catch (error) {
 			Log.info(`${this.name} fetch failed error=`, error);
 		}
+=======
+		const response = await fetch(url);
+		return await response.text();
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	},
 
 	/**
@@ -266,6 +320,7 @@ Module.register("compliments", {
 			compliment.lastElementChild.remove();
 			wrapper.appendChild(compliment);
 		}
+<<<<<<< HEAD
 		// if a new set of compliments was loaded from the refresh task
 		// we do this here to make sure no other function is using the compliments list
 		if (this.compliments_new) {
@@ -287,6 +342,8 @@ Module.register("compliments", {
 				this.config.remoteFile = this.config.remoteFile2;
 			}
 		}
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		return wrapper;
 	},
 

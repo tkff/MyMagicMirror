@@ -160,7 +160,11 @@ const CalendarFetcherUtils = {
 			}
 
 			if (event.type === "VEVENT") {
+<<<<<<< HEAD
 				Log.debug(`Event:\n${JSON.stringify(event, null, 2)}`);
+=======
+				Log.debug(`Event:\n${JSON.stringify(event)}`);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 				let startMoment = eventDate(event, "start");
 				let endMoment;
 
@@ -246,8 +250,11 @@ const CalendarFetcherUtils = {
 				const location = event.location || false;
 				const geo = event.geo || false;
 				const description = event.description || false;
+<<<<<<< HEAD
 				let d1;
 				let d2;
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 				if (event.rrule && typeof event.rrule !== "undefined" && !isFacebookBirthday) {
 					const rule = event.rrule;
@@ -263,10 +270,16 @@ const CalendarFetcherUtils = {
 
 					// For recurring events, get the set of start dates that fall within the range
 					// of dates we're looking for.
+<<<<<<< HEAD
 
 					let pastLocal;
 					let futureLocal;
 
+=======
+					// kblankenship1989 - to fix issue #1798, converting all dates to locale time first, then converting back to UTC time
+					let pastLocal;
+					let futureLocal;
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					if (CalendarFetcherUtils.isFullDayEvent(event)) {
 						Log.debug("fullday");
 						// if full day event, only use the date part of the ranges
@@ -286,6 +299,7 @@ const CalendarFetcherUtils = {
 						}
 						futureLocal = futureMoment.toDate(); // future
 					}
+<<<<<<< HEAD
 					const oneDayInMs = 24 * 60 * 60 * 1000;
 					d1 = new Date(new Date(pastLocal.valueOf() - oneDayInMs).getTime());
 					d2 = new Date(new Date(futureLocal.valueOf() + oneDayInMs).getTime());
@@ -306,11 +320,21 @@ const CalendarFetcherUtils = {
 					Log.debug(`Title: ${event.summary}, with dates: \n\n${JSON.stringify(dates)}\n`);
 
 					// shouldn't need this  anymore, as RRULE not passed junk
+=======
+					Log.debug(`Search for recurring events between: ${pastLocal} and ${futureLocal}`);
+					const hasByWeekdayRule = rule.options.byweekday !== undefined && rule.options.byweekday !== null;
+					const oneDayInMs = 24 * 60 * 60 * 1000;
+					Log.debug(`RRule: ${rule.toString()}`);
+					rule.options.tzid = null; // RRule gets *very* confused with timezones
+					let dates = rule.between(new Date(pastLocal.valueOf() - oneDayInMs), new Date(futureLocal.valueOf() + oneDayInMs), true, () => { return true; });
+					Log.debug(`Title: ${event.summary}, with dates: ${JSON.stringify(dates)}`);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					dates = dates.filter((d) => {
 						if (JSON.stringify(d) === "null") return false;
 						else return true;
 					});
 
+<<<<<<< HEAD
 					// go thru all the rrule.between() dates and put back the tz offset removed so rrule.between would work
 					let datesLocal = [];
 					let offset = d1.getTimezoneOffset();
@@ -332,6 +356,36 @@ const CalendarFetcherUtils = {
 					});
 					dates = datesLocal;
 
+=======
+					// RRule can generate dates with an incorrect recurrence date. Process the array here and apply date correction.
+					if (hasByWeekdayRule) {
+						Log.debug("Rule has byweekday, checking for correction");
+						dates.forEach((date, index, arr) => {
+							// NOTE: getTimezoneOffset() is negative of the expected value. For America/Los_Angeles under DST (GMT-7),
+							// this value is +420. For Australia/Sydney under DST (GMT+11), this value is -660.
+							const tzOffset = date.getTimezoneOffset() / 60;
+							const hour = date.getHours();
+							if ((tzOffset < 0) && (hour < -tzOffset)) { // east of GMT
+								Log.debug(`East of GMT (tzOffset: ${tzOffset}) and hour=${hour} < ${-tzOffset}, Subtracting 1 day from ${date}`);
+								arr[index] = new Date(date.valueOf() - oneDayInMs);
+							} else if ((tzOffset > 0) && (hour >= (24 - tzOffset))) { // west of GMT
+								Log.debug(`West of GMT (tzOffset: ${tzOffset}) and hour=${hour} >= 24-${tzOffset}, Adding 1 day to ${date}`);
+								arr[index] = new Date(date.valueOf() + oneDayInMs);
+							}
+						});
+					}
+
+					// The dates array from rrule can be confused by DST. If the event was created during DST and we
+					// are querying a date range during non-DST, rrule can have the incorrect time for the date range.
+					// Reprocess the array here computing and applying the time offset.
+					dates.forEach((date, index, arr) => {
+						let adjustHours = CalendarFetcherUtils.calculateTimezoneAdjustment(event, date);
+						if (adjustHours !== 0) {
+							Log.debug(`Applying timezone adjustment hours=${adjustHours} to ${date}`);
+							arr[index] = new Date(date.valueOf() + (adjustHours * 60 * 60 * 1000));
+						}
+					});
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 					// The "dates" array contains the set of dates within our desired date range range that are valid
 					// for the recurrence rule. *However*, it's possible for us to have a specific recurrence that
@@ -340,22 +394,44 @@ const CalendarFetcherUtils = {
 					// because the logic below will filter out any recurrences that don't actually belong within
 					// our display range.
 					// Would be great if there was a better way to handle this.
+<<<<<<< HEAD
 					//
 					// i don't think we will ever see this anymore (oct 2024) due to code fixes for rrule.between()
 					//
 					Log.debug("event.recurrences:", event.recurrences);
+=======
+					Log.debug(`event.recurrences: ${event.recurrences}`);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					if (event.recurrences !== undefined) {
 						for (let dateKey in event.recurrences) {
 							// Only add dates that weren't already in the range we added from the rrule so that
 							// we don't double-add those events.
 							let d = new Date(dateKey);
+<<<<<<< HEAD
 							if (!moment(d).isBetween(d1, d2)) {
 								Log.debug("adding recurring event not found in between list =", d, " should not happen now using local dates oct 17,24");
+=======
+							if (!moment(d).isBetween(pastMoment, futureMoment)) {
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 								dates.push(d);
 							}
 						}
 					}
 
+<<<<<<< HEAD
+=======
+					// Lastly, sometimes rrule doesn't include the event.start even if it is in the requested range. Ensure
+					// inclusion here. Unfortunately dates.includes() doesn't find it so we have to do forEach().
+					{
+						let found = false;
+						dates.forEach((d) => { if (d.valueOf() === event.start.valueOf()) found = true; });
+						if (!found) {
+							Log.debug(`event.start=${event.start} was not included in results from rrule; adding`);
+							dates.splice(0, 0, event.start);
+						}
+					}
+
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					// Loop through the set of date entries to see which recurrences should be added to our event list.
 					for (let d in dates) {
 						let date = dates[d];
@@ -363,6 +439,7 @@ const CalendarFetcherUtils = {
 						let curDurationMs = durationMs;
 						let showRecurrence = true;
 
+<<<<<<< HEAD
 						let startMoment = moment(date);
 
 						let dateKey = CalendarFetcherUtils.getDateKeyFromDate(date);
@@ -399,6 +476,32 @@ const CalendarFetcherUtils = {
 
 						endMoment = moment(startMoment.valueOf() + curDurationMs);
 
+=======
+						startMoment = moment(date);
+
+						// Remove the time information of each date by using its substring, using the following method:
+						// .toISOString().substring(0,10).
+						// since the date is given as ISOString with YYYY-MM-DDTHH:MM:SS.SSSZ
+						// (see https://momentjs.com/docs/#/displaying/as-iso-string/).
+						// This must be done after `date` is adjusted
+						const dateKey = date.toISOString().substring(0, 10);
+
+						// For each date that we're checking, it's possible that there is a recurrence override for that one day.
+						if (curEvent.recurrences !== undefined && curEvent.recurrences[dateKey] !== undefined) {
+							// We found an override, so for this recurrence, use a potentially different title, start date, and duration.
+							curEvent = curEvent.recurrences[dateKey];
+							startMoment = moment(curEvent.start);
+							curDurationMs = curEvent.end.valueOf() - startMoment.valueOf();
+						}
+						// If there's no recurrence override, check for an exception date.  Exception dates represent exceptions to the rule.
+						else if (curEvent.exdate !== undefined && curEvent.exdate[dateKey] !== undefined) {
+							// This date is an exception date, which means we should skip it in the recurrence pattern.
+							showRecurrence = false;
+						}
+						Log.debug(`duration: ${curDurationMs}`);
+
+						endMoment = moment(startMoment.valueOf() + curDurationMs);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 						if (startMoment.valueOf() === endMoment.valueOf()) {
 							endMoment = endMoment.endOf("day");
 						}
@@ -416,7 +519,11 @@ const CalendarFetcherUtils = {
 						}
 
 						if (showRecurrence === true) {
+<<<<<<< HEAD
 							Log.debug(`saving event: ${recurrenceTitle}`);
+=======
+							Log.debug(`saving event: ${description}`);
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 							newEvents.push({
 								title: recurrenceTitle,
 								startDate: startMoment.format("x"),
@@ -429,10 +536,14 @@ const CalendarFetcherUtils = {
 								geo: geo,
 								description: description
 							});
+<<<<<<< HEAD
 						} else {
 							Log.debug("not saving event ", recurrenceTitle, new Date(startMoment));
 						}
 						Log.debug(" ");
+=======
+						}
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					}
 					// End recurring event parsing.
 				} else {
@@ -483,9 +594,13 @@ const CalendarFetcherUtils = {
 						startDate: startMoment.add(adjustHours, "hours").format("x"),
 						endDate: endMoment.add(adjustHours, "hours").format("x"),
 						fullDayEvent: fullDayEvent,
+<<<<<<< HEAD
 						recurringEvent: false,
 						class: event.class,
 						firstYear: event.start.getFullYear(),
+=======
+						class: event.class,
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 						location: location,
 						geo: geo,
 						description: description
@@ -502,6 +617,7 @@ const CalendarFetcherUtils = {
 	},
 
 	/**
+<<<<<<< HEAD
 	 * fixup thew event fields that have dates to use local time
 	 * BEFORE calling rrule.between
 	 * @param the event being processed
@@ -696,6 +812,8 @@ const CalendarFetcherUtils = {
 	},
 
 	/**
+=======
+>>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	 * Lookup iana tz from windows
 	 * @param {string} msTZName the timezone name to lookup
 	 * @returns {string|null} the iana name or null of none is found
