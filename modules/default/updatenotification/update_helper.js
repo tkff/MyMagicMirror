@@ -1,19 +1,11 @@
 const Exec = require("node:child_process").exec;
 const Spawn = require("node:child_process").spawn;
-<<<<<<< HEAD
 const fs = require("node:fs");
 
 const Log = require("logger");
 
 /*
  * class Updater
-=======
-const pm2 = require("pm2");
-
-const Log = require("logger");
-
-/* class Updater
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
  * Allow to self updating 3rd party modules from command defined in config
  *
  * [constructor] read value in config:
@@ -55,13 +47,8 @@ class Updater {
 		this.autoRestart = config.updateAutorestart;
 		this.moduleList = {};
 		this.updating = false;
-<<<<<<< HEAD
 		this.usePM2 = false; // don't use pm2 by default
 		this.PM2Id = null; // pm2 process number
-=======
-		this.usePM2 = false;
-		this.PM2 = null;
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		this.version = global.version;
 		this.root_path = global.root_path;
 		Log.info("updatenotification: Updater Class Loaded!");
@@ -98,7 +85,6 @@ class Updater {
 		return updater;
 	}
 
-<<<<<<< HEAD
 	/*
 	 *  module updater with his proper command
 	 *  return object as result
@@ -108,15 +94,6 @@ class Updater {
 	 * 	needRestart: <boolean> // if magicmirror restart required
 	 * };
 	 */
-=======
-	// module updater with his proper command
-	// return object as result
-	//{
-	//	error: <boolean>, // if error detected
-	//	updated: <boolean>, // if updated successfully
-	//	needRestart: <boolean> // if magicmirror restart required
-	//};
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	updateProcess (module) {
 		let Result = {
 			error: false,
@@ -162,18 +139,11 @@ class Updater {
 		else this.npmRestart();
 	}
 
-<<<<<<< HEAD
 	// restart MagicMiror with "pm2": use PM2Id for restart it
 	pm2Restart () {
 		Log.info("updatenotification: PM2 will restarting MagicMirror...");
 		const pm2 = require("pm2");
 		pm2.restart(this.PM2Id, (err, proc) => {
-=======
-	// restart MagicMiror with "pm2"
-	pm2Restart () {
-		Log.info("updatenotification: PM2 will restarting MagicMirror...");
-		pm2.restart(this.PM2, (err, proc) => {
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			if (err) {
 				Log.error("updatenotification:[PM2] restart Error", err);
 			}
@@ -186,11 +156,7 @@ class Updater {
 		const out = process.stdout;
 		const err = process.stderr;
 		const subprocess = Spawn("npm start", { cwd: this.root_path, shell: true, detached: true, stdio: ["ignore", out, err] });
-<<<<<<< HEAD
 		subprocess.unref(); // detach the newly launched process from the master process
-=======
-		subprocess.unref();
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		process.exit();
 	}
 
@@ -198,7 +164,6 @@ class Updater {
 	check_PM2_Process () {
 		Log.info("updatenotification: Checking PM2 using...");
 		return new Promise((resolve) => {
-<<<<<<< HEAD
 			if (fs.existsSync("/.dockerenv")) {
 				Log.info("updatenotification: Running in docker container, not using PM2 ...");
 				resolve(false);
@@ -217,27 +182,16 @@ class Updater {
 			pm2.connect((err) => {
 				if (err) {
 					Log.error("updatenotification: [PM2]", err);
-=======
-			pm2.connect((err) => {
-				if (err) {
-					Log.error("updatenotification: [PM2]", err);
-					this.usePM2 = false;
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					resolve(false);
 					return;
 				}
 				pm2.list((err, list) => {
 					if (err) {
 						Log.error("updatenotification: [PM2] Can't get process List!");
-<<<<<<< HEAD
-=======
-						this.usePM2 = false;
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 						resolve(false);
 						return;
 					}
 					list.forEach((pm) => {
-<<<<<<< HEAD
 						Log.debug(`updatenotification: [PM2] found pm2 process id: ${pm.pm_id} -- name: ${pm.name} -- unique_id: ${pm.pm2_env.unique_id}`);
 						if (pm.pm2_env.status === "online" && process.env.name === pm.name && +process.env.pm_id === +pm.pm_id && process.env.unique_id === pm.pm2_env.unique_id) {
 							this.PM2Id = pm.pm_id;
@@ -251,19 +205,6 @@ class Updater {
 					pm2.disconnect();
 					if (!this.usePM2) {
 						Log.info("updatenotification: [PM2] You are not using pm2");
-=======
-						if (pm.pm2_env.version === this.version && pm.pm2_env.status === "online" && pm.pm2_env.pm_cwd.includes(`${this.root_path}/`)) {
-							this.PM2 = pm.name;
-							this.usePM2 = true;
-							Log.info("updatenotification: [PM2] You are using pm2 with", this.PM2);
-							resolve(true);
-						}
-					});
-					pm2.disconnect();
-					if (!this.PM2) {
-						Log.info("updatenotification: [PM2] You are not using pm2");
-						this.usePM2 = false;
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 						resolve(false);
 					}
 				});

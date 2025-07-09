@@ -1,5 +1,4 @@
 const execSync = require("node:child_process").execSync;
-<<<<<<< HEAD
 const path = require("node:path");
 
 const rootPath = path.resolve(`${__dirname}/../`);
@@ -13,11 +12,6 @@ const regionRegEx = /"region ([^"]*)/i;
 const indexFileName = "index.html";
 const discoveredPositionsJSFilename = "js/positions.js";
 
-=======
-const Log = require("logger");
-const si = require("systeminformation");
-
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 module.exports = {
 
 	async logSystemInformation  () {
@@ -25,21 +19,16 @@ module.exports = {
 			let installedNodeVersion = execSync("node -v", { encoding: "utf-8" }).replace("v", "").replace(/(?:\r\n|\r|\n)/g, "");
 
 			const staticData = await si.get({
-				system: "manufacturer, model, raspberry, virtual",
+				system: "manufacturer, model, virtual",
 				osInfo: "platform, distro, release, arch",
 				versions: "kernel, node, npm, pm2"
 			});
-			let systemDataString = "System information:";
-<<<<<<< HEAD
-			systemDataString += `\n### SYSTEM:   manufacturer: ${staticData.system.manufacturer}; model: ${staticData.system.model}; virtual: ${staticData.system.virtual}`;
-			systemDataString += `\n### OS:       platform: ${staticData.osInfo.platform}; distro: ${staticData.osInfo.distro}; release: ${staticData.osInfo.release}; arch: ${staticData.osInfo.arch}; kernel: ${staticData.versions.kernel}`;
-			systemDataString += `\n### VERSIONS: electron: ${process.versions.electron}; used node: ${staticData.versions.node}; installed node: ${installedNodeVersion}; npm: ${staticData.versions.npm}; pm2: ${staticData.versions.pm2}`;
-=======
-			systemDataString += `\n### SYSTEM:   manufacturer: ${staticData["system"]["manufacturer"]}; model: ${staticData["system"]["model"]}; raspberry: ${staticData["system"]["raspberry"]}; virtual: ${staticData["system"]["virtual"]}`;
-			systemDataString += `\n### OS:       platform: ${staticData["osInfo"]["platform"]}; distro: ${staticData["osInfo"]["distro"]}; release: ${staticData["osInfo"]["release"]}; arch: ${staticData["osInfo"]["arch"]}; kernel: ${staticData["versions"]["kernel"]}`;
-			systemDataString += `\n### VERSIONS: electron: ${process.versions.electron}; used node: ${staticData["versions"]["node"]}; installed node: ${installedNodeVersion}; npm: ${staticData["versions"]["npm"]}; pm2: ${staticData["versions"]["pm2"]}`;
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
-			systemDataString += `\n### OTHER:    timeZone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}; ELECTRON_ENABLE_GPU: ${process.env.ELECTRON_ENABLE_GPU}`;
+			let systemDataString = `System information:
+					### SYSTEM:   manufacturer: ${staticData.system.manufacturer}; model: ${staticData.system.model}; virtual: ${staticData.system.virtual}
+					### OS:       platform: ${staticData.osInfo.platform}; distro: ${staticData.osInfo.distro}; release: ${staticData.osInfo.release}; arch: ${staticData.osInfo.arch}; kernel: ${staticData.versions.kernel}
+					### VERSIONS: electron: ${process.versions.electron}; used node: ${staticData.versions.node}; installed node: ${installedNodeVersion}; npm: ${staticData.versions.npm}; pm2: ${staticData.versions.pm2}
+					### OTHER:    timeZone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}; ELECTRON_ENABLE_GPU: ${process.env.ELECTRON_ENABLE_GPU}`
+				.replace(/\t/g, "");
 			Log.info(systemDataString);
 
 			// Return is currently only for jest
@@ -47,7 +36,6 @@ module.exports = {
 		} catch (e) {
 			Log.error(e);
 		}
-<<<<<<< HEAD
 	},
 
 	// return all available module positions
@@ -87,7 +75,5 @@ module.exports = {
 		}
 		// return the list to the caller
 		return modulePositions;
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	}
 };

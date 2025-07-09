@@ -45,20 +45,12 @@ async function cors (req, res) {
 			url = match[1];
 
 			const headersToSend = getHeadersToSend(req.url);
-<<<<<<< HEAD
 			const expectedReceivedHeaders = geExpectedReceivedHeaders(req.url);
-=======
-			const expectedRecievedHeaders = geExpectedRecievedHeaders(req.url);
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 			Log.log(`cors url: ${url}`);
 			const response = await fetch(url, { headers: headersToSend });
 
-<<<<<<< HEAD
 			for (const header of expectedReceivedHeaders) {
-=======
-			for (const header of expectedRecievedHeaders) {
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 				const headerValue = response.headers.get(header);
 				if (header) res.set(header, headerValue);
 			}
@@ -97,7 +89,6 @@ function getHeadersToSend (url) {
  * @param {string} url - The url containing the expected headers from the response.
  * @returns {string[]} headers - The name of the expected headers.
  */
-<<<<<<< HEAD
 function geExpectedReceivedHeaders (url) {
 	const expectedReceivedHeaders = ["Content-Type"];
 	const expectedReceivedHeadersMatch = new RegExp("expectedheaders=(.+?)(&|$)", "g").exec(url);
@@ -108,18 +99,6 @@ function geExpectedReceivedHeaders (url) {
 		}
 	}
 	return expectedReceivedHeaders;
-=======
-function geExpectedRecievedHeaders (url) {
-	const expectedRecievedHeaders = ["Content-Type"];
-	const expectedRecievedHeadersMatch = new RegExp("expectedheaders=(.+?)(&|$)", "g").exec(url);
-	if (expectedRecievedHeadersMatch) {
-		const headers = expectedRecievedHeadersMatch[1].split(",");
-		for (const header of headers) {
-			expectedRecievedHeaders.push(header);
-		}
-	}
-	return expectedRecievedHeaders;
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 }
 
 /**
@@ -130,10 +109,7 @@ function geExpectedRecievedHeaders (url) {
 function getHtml (req, res) {
 	let html = fs.readFileSync(path.resolve(`${global.root_path}/index.html`), { encoding: "utf8" });
 	html = html.replace("#VERSION#", global.version);
-<<<<<<< HEAD
 	html = html.replace("#TESTMODE#", global.mmTestMode);
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 	let configFile = "config/config.js";
 	if (typeof global.configuration_file !== "undefined") {
@@ -153,7 +129,6 @@ function getVersion (req, res) {
 	res.send(global.version);
 }
 
-<<<<<<< HEAD
 /**
  * Gets environment variables needed in the browser.
  * @returns {object} environment variables key: values
@@ -181,6 +156,3 @@ function getEnvVars (req, res) {
 }
 
 module.exports = { cors, getConfig, getHtml, getVersion, getStartup, getEnvVars, getEnvVarsAsObj };
-=======
-module.exports = { cors, getConfig, getHtml, getVersion, getStartup };
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67

@@ -14,11 +14,8 @@ Module.register("weather", {
 		updateInterval: 10 * 60 * 1000, // every 10 minutes
 		animationSpeed: 1000,
 		showFeelsLike: true,
-<<<<<<< HEAD
-		showHumidity: "none", // this is now a string; see current.njk
-=======
-		showHumidity: false,
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
+		showHumidity: "none", // possible options for "current" weather are "none", "wind", "temp", "feelslike" or "below", for "hourly" weather "none" or "true"
+		hideZeroes: false, // hide zeroes (and empty columns) in hourly, currently only for precipitation
 		showIndoorHumidity: false,
 		showIndoorTemperature: false,
 		allowOverrideNotification: false,
@@ -84,13 +81,10 @@ Module.register("weather", {
 			Log.warn("Your are using the deprecated config values 'useBeaufort'. Please switch to windUnits!");
 			this.windUnits = "beaufort";
 		}
-<<<<<<< HEAD
 		if (typeof this.config.showHumidity === "boolean") {
 			Log.warn("[weather] Deprecation warning: Please consider updating showHumidity to the new style (config string).");
 			this.config.showHumidity = this.config.showHumidity ? "wind" : "none";
 		}
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 		// Initialize the weather provider.
 		this.weatherProvider = WeatherProvider.initialize(this.config.weatherProvider, this);
@@ -177,7 +171,6 @@ Module.register("weather", {
 		}
 
 		const notificationPayload = {
-<<<<<<< HEAD
 			currentWeather: this.config.units === "imperial"
 				? WeatherUtils.convertWeatherObjectToImperial(this.weatherProvider?.currentWeatherObject?.simpleClone()) ?? null
 				: this.weatherProvider?.currentWeatherObject?.simpleClone() ?? null,
@@ -191,14 +184,6 @@ Module.register("weather", {
 			providerName: this.weatherProvider.providerName
 		};
 
-=======
-			currentWeather: this.weatherProvider?.currentWeatherObject?.simpleClone() ?? null,
-			forecastArray: this.weatherProvider?.weatherForecastArray?.map((ar) => ar.simpleClone()) ?? [],
-			hourlyArray: this.weatherProvider?.weatherHourlyArray?.map((ar) => ar.simpleClone()) ?? [],
-			locationName: this.weatherProvider?.fetchedLocationName,
-			providerName: this.weatherProvider.providerName
-		};
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		this.sendNotification("WEATHER_UPDATED", notificationPayload);
 	},
 
@@ -256,11 +241,7 @@ Module.register("weather", {
 						}
 					}
 				} else if (type === "precip") {
-<<<<<<< HEAD
 					if (value === null || isNaN(value)) {
-=======
-					if (value === null || isNaN(value) || value === 0 || value.toFixed(2) === "0.00") {
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 						formattedValue = "";
 					} else {
 						formattedValue = WeatherUtils.convertPrecipitationUnit(value, valueUnit, this.config.units);

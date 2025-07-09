@@ -54,7 +54,6 @@ describe("Compliments module", () => {
 			await expect(doTest(["Remote compliment file works!"])).resolves.toBe(true);
 		});
 	});
-<<<<<<< HEAD
 
 	describe("Feature specialDayUnique in compliments module", () => {
 		describe("specialDayUnique is false", () => {
@@ -123,6 +122,4 @@ describe("Compliments module", () => {
 		});
 	});
 
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 });

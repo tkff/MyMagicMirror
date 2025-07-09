@@ -13,7 +13,6 @@ permissions:
   contents: read
 
 jobs:
-<<<<<<< HEAD
   code-style-check:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -34,42 +33,35 @@ jobs:
           npm run test:js
           npm run test:css
           npm run test:markdown
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       matrix:
-<<<<<<< HEAD
-        node-version: [20.18.1, 20.x, 22.x, 23.x]
-=======
-        node-version: [18.x, 20.x, 21.x]
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
+        node-version: [22.14.0, 22.x, 23.x]
     steps:
+      - name: Install electron dependencies and labwc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libasound2t64 labwc
       - name: "Checkout code"
         uses: actions/checkout@v4
       - name: "Use Node.js ${{ matrix.node-version }}"
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-<<<<<<< HEAD
           check-latest: true
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
           cache: "npm"
-      - name: "Install dependencies"
+      - name: "Install MagicMirror²"
         run: |
           npm run install-mm:dev
       - name: "Run tests"
         run: |
-          Xvfb :99 -screen 0 1024x768x16 &
-          export DISPLAY=:99
+          # Fix chrome-sandbox permissions:
+          sudo chown root:root ./node_modules/electron/dist/chrome-sandbox
+          sudo chmod 4755 ./node_modules/electron/dist/chrome-sandbox
+          # Start labwc
+          WLR_BACKENDS=headless WLR_LIBINPUT_NO_DEVICES=1 WLR_RENDERER=pixman labwc &
+          export WAYLAND_DISPLAY=wayland-0
           touch css/custom.css
-<<<<<<< HEAD
-=======
-          npm run test:prettier
-          npm run test:js
-          npm run test:css
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
           npm run test

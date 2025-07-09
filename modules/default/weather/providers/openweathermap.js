@@ -1,6 +1,5 @@
 /* global WeatherProvider, WeatherObject */
 
-<<<<<<< HEAD
 /*
  * This class is a provider for Openweathermap,
  * see https://openweathermap.org/
@@ -12,20 +11,10 @@ WeatherProvider.register("openweathermap", {
 	 * This isn't strictly necessary, since it will fallback to the provider identifier
 	 * But for debugging (and future alerts) it would be nice to have the real name.
 	 */
-=======
-/* This class is a provider for Openweathermap,
- * see https://openweathermap.org/
- */
-WeatherProvider.register("openweathermap", {
-	// Set the name of the provider.
-	// This isn't strictly necessary, since it will fallback to the provider identifier
-	// But for debugging (and future alerts) it would be nice to have the real name.
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	providerName: "OpenWeatherMap",
 
 	// Set the default config properties that is specific to this provider
 	defaults: {
-<<<<<<< HEAD
 		apiVersion: "3.0",
 		apiBase: "https://api.openweathermap.org/data/",
 		// weatherEndpoint is "/onecall" since API 3.0
@@ -35,14 +24,6 @@ WeatherProvider.register("openweathermap", {
 		location: false,
 		// the /onecall endpoint needs lat / lon values, it doesn't support the locationId
 		lat: 0,
-=======
-		apiVersion: "2.5",
-		apiBase: "https://api.openweathermap.org/data/",
-		weatherEndpoint: "", // can be "onecall", "forecast" or "weather" (for current)
-		locationID: false,
-		location: false,
-		lat: 0, // the onecall endpoint needs lat / lon values, it doesn't support the locationId
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		lon: 0,
 		apiKey: ""
 	},
@@ -93,16 +74,11 @@ WeatherProvider.register("openweathermap", {
 		this.fetchData(this.getUrl())
 			.then((data) => {
 				if (!data) {
-<<<<<<< HEAD
 
 					/*
 					 * Did not receive usable new data.
 					 * Maybe this needs a better check?
 					 */
-=======
-					// Did not receive usable new data.
-					// Maybe this needs a better check?
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					return;
 				}
 
@@ -117,33 +93,6 @@ WeatherProvider.register("openweathermap", {
 			.finally(() => this.updateAvailable());
 	},
 
-<<<<<<< HEAD
-=======
-	/**
-	 * Overrides method for setting config to check if endpoint is correct for hourly
-	 * @param {object} config The configuration object
-	 */
-	setConfig (config) {
-		this.config = config;
-		if (!this.config.weatherEndpoint) {
-			switch (this.config.type) {
-				case "hourly":
-					this.config.weatherEndpoint = "/onecall";
-					break;
-				case "daily":
-				case "forecast":
-					this.config.weatherEndpoint = "/forecast";
-					break;
-				case "current":
-					this.config.weatherEndpoint = "/weather";
-					break;
-				default:
-					Log.error("weatherEndpoint not configured and could not resolve it based on type");
-			}
-		}
-	},
-
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	/** OpenWeatherMap Specific Methods - These are not part of the default provider methods */
 	/*
 	 * Gets the complete url for the request
@@ -243,15 +192,10 @@ WeatherProvider.register("openweathermap", {
 				weather.weatherType = this.convertWeatherType(forecast.weather[0].icon);
 			}
 
-<<<<<<< HEAD
 			/*
 			 * the same day as before
 			 * add values from forecast to corresponding variables
 			 */
-=======
-			// the same day as before
-			// add values from forecast to corresponding variables
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			minTemp.push(forecast.main.temp_min);
 			maxTemp.push(forecast.main.temp_max);
 
@@ -264,15 +208,10 @@ WeatherProvider.register("openweathermap", {
 			}
 		}
 
-<<<<<<< HEAD
 		/*
 		 * last day
 		 * calculate minimum/maximum temperature, specify rain amount
 		 */
-=======
-		// last day
-		// calculate minimum/maximum temperature, specify rain amount
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		weather.minTemperature = Math.min.apply(null, minTemp);
 		weather.maxTemperature = Math.max.apply(null, maxTemp);
 		weather.rain = rain;
@@ -301,28 +240,18 @@ WeatherProvider.register("openweathermap", {
 			weather.rain = 0;
 			weather.snow = 0;
 
-<<<<<<< HEAD
 			/*
 			 * forecast.rain not available if amount is zero
 			 * The API always returns in millimeters
 			 */
-=======
-			// forecast.rain not available if amount is zero
-			// The API always returns in millimeters
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			if (forecast.hasOwnProperty("rain") && !isNaN(forecast.rain)) {
 				weather.rain = forecast.rain;
 			}
 
-<<<<<<< HEAD
 			/*
 			 * forecast.snow not available if amount is zero
 			 * The API always returns in millimeters
 			 */
-=======
-			// forecast.snow not available if amount is zero
-			// The API always returns in millimeters
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			if (forecast.hasOwnProperty("snow") && !isNaN(forecast.snow)) {
 				weather.snow = forecast.snow;
 			}
@@ -356,21 +285,12 @@ WeatherProvider.register("openweathermap", {
 			current.weatherType = this.convertWeatherType(data.current.weather[0].icon);
 			current.humidity = data.current.humidity;
 			current.uv_index = data.current.uvi;
-<<<<<<< HEAD
 			if (data.current.hasOwnProperty("rain") && !isNaN(data.current.rain["1h"])) {
 				current.rain = data.current.rain["1h"];
 				precip = true;
 			}
 			if (data.current.hasOwnProperty("snow") && !isNaN(data.current.snow["1h"])) {
 				current.snow = data.current.snow["1h"];
-=======
-			if (data.current.hasOwnProperty("rain") && !isNaN(data.current["rain"]["1h"])) {
-				current.rain = data.current["rain"]["1h"];
-				precip = true;
-			}
-			if (data.current.hasOwnProperty("snow") && !isNaN(data.current["snow"]["1h"])) {
-				current.snow = data.current["snow"]["1h"];
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 				precip = true;
 			}
 			if (precip) {
@@ -476,12 +396,8 @@ WeatherProvider.register("openweathermap", {
 		return weatherTypes.hasOwnProperty(weatherType) ? weatherTypes[weatherType] : null;
 	},
 
-<<<<<<< HEAD
 	/*
 	 * getParams(compliments)
-=======
-	/* getParams(compliments)
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	 * Generates an url with api parameters based on the config.
 	 *
 	 * return String - URL params.

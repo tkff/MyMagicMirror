@@ -1,11 +1,7 @@
 /* global WeatherProvider, WeatherObject */
 
-<<<<<<< HEAD
 /*
  * This class is a provider for UK Met Office Data Hub (the replacement for their Data Point services).
-=======
-/* This class is a provider for UK Met Office Data Hub (the replacement for their Data Point services).
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
  * For more information on Data Hub, see https://www.metoffice.gov.uk/services/data/datapoint/notifications/weather-datahub
  * Data available:
  * 		Hourly data for next 2 days ("hourly") - https://www.metoffice.gov.uk/binaries/content/assets/metofficegovuk/pdf/data/global-spot-data-hourly.pdf
@@ -16,14 +12,8 @@
  * This provider requires longitude/latitude coordinates, rather than a location ID (as with the previous Met Office provider)
  * Provide the following in your config.js file:
  * 		weatherProvider: "ukmetofficedatahub",
-<<<<<<< HEAD
  * 		apiBase: "https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/",
  * 		apiKey: "[YOUR API KEY]",
-=======
- * 		apiBase: "https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/",
- * 		apiKey: "[YOUR API KEY]",
- * 		apiSecret: "[YOUR API SECRET]",
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
  * 		lat: [LATITUDE (DECIMAL)],
  * 		lon: [LONGITUDE (DECIMAL)]
  *
@@ -48,23 +38,13 @@ WeatherProvider.register("ukmetofficedatahub", {
 
 	// Set the default config properties that is specific to this provider
 	defaults: {
-<<<<<<< HEAD
 		apiBase: "https://data.hub.api.metoffice.gov.uk/sitespecific/v0/point/",
 		apiKey: "",
-=======
-		apiBase: "https://api-metoffice.apiconnect.ibmcloud.com/metoffice/production/v0/forecasts/point/",
-		apiKey: "",
-		apiSecret: "",
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		lat: 0,
 		lon: 0
 	},
 
-<<<<<<< HEAD
 	// Build URL with query strings according to DataHub API (https://datahub.metoffice.gov.uk/docs/f/category/site-specific/type/site-specific/api-documentation#get-/point/hourly)
-=======
-	// Build URL with query strings according to DataHub API (https://metoffice.apiconnect.ibmcloud.com/metoffice/production/api)
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	getUrl (forecastType) {
 		let queryStrings = "?";
 		queryStrings += `latitude=${this.config.lat}`;
@@ -75,7 +55,6 @@ WeatherProvider.register("ukmetofficedatahub", {
 		return this.config.apiBase + (this.config.apiBase.endsWith("/") ? "" : "/") + forecastType + queryStrings;
 	},
 
-<<<<<<< HEAD
 	/*
 	 * Build the list of headers for the request
 	 * For DataHub requests, the API key/secret are sent in the headers rather than as query strings.
@@ -85,16 +64,6 @@ WeatherProvider.register("ukmetofficedatahub", {
 		return {
 			accept: "application/json",
 			apikey: this.config.apiKey
-=======
-	// Build the list of headers for the request
-	// For DataHub requests, the API key/secret are sent in the headers rather than as query strings.
-	// Headers defined according to Data Hub API (https://metoffice.apiconnect.ibmcloud.com/metoffice/production/api)
-	getHeaders () {
-		return {
-			accept: "application/json",
-			"x-ibm-client-id": this.config.apiKey,
-			"x-ibm-client-secret": this.config.apiSecret
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		};
 	},
 
@@ -112,16 +81,11 @@ WeatherProvider.register("ukmetofficedatahub", {
 			.then((data) => {
 				// Check data is usable
 				if (!data || !data.features || !data.features[0].properties || !data.features[0].properties.timeSeries || data.features[0].properties.timeSeries.length === 0) {
-<<<<<<< HEAD
 
 					/*
 					 * Did not receive usable new data.
 					 * Maybe this needs a better check?
 					 */
-=======
-					// Did not receive usable new data.
-					// Maybe this needs a better check?
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					Log.error("Possibly bad current/hourly data?");
 					Log.error(data);
 					return;
@@ -169,30 +133,19 @@ WeatherProvider.register("ukmetofficedatahub", {
 				currentWeather.precipitationProbability = forecastDataHours[hour].probOfPrecipitation;
 				currentWeather.feelsLikeTemp = forecastDataHours[hour].feelsLikeTemperature;
 
-<<<<<<< HEAD
 				/*
 				 * Pass on full details, so they can be used in custom templates
 				 * Note the units of the supplied data when using this (see top of file)
 				 */
-=======
-				// Pass on full details, so they can be used in custom templates
-				// Note the units of the supplied data when using this (see top of file)
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 				currentWeather.rawData = forecastDataHours[hour];
 			}
 		}
 
-<<<<<<< HEAD
 		/*
 		 * Determine the sunrise/sunset times - (still) not supplied in UK Met Office data
 		 * Passes {longitude, latitude} to SunCalc, could pass height to, but
 		 * SunCalc.getTimes doesn't take that into account
 		 */
-=======
-		// Determine the sunrise/sunset times - (still) not supplied in UK Met Office data
-		// Passes {longitude, latitude} to SunCalc, could pass height to, but
-		// SunCalc.getTimes doesn't take that into account
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		currentWeather.updateSunTime(this.config.lat, this.config.lon);
 
 		return currentWeather;
@@ -204,16 +157,11 @@ WeatherProvider.register("ukmetofficedatahub", {
 			.then((data) => {
 				// Check data is usable
 				if (!data || !data.features || !data.features[0].properties || !data.features[0].properties.timeSeries || data.features[0].properties.timeSeries.length === 0) {
-<<<<<<< HEAD
 
 					/*
 					 * Did not receive usable new data.
 					 * Maybe this needs a better check?
 					 */
-=======
-					// Did not receive usable new data.
-					// Maybe this needs a better check?
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					Log.error("Possibly bad forecast data?");
 					Log.error(data);
 					return;
@@ -268,15 +216,10 @@ WeatherProvider.register("ukmetofficedatahub", {
 				forecastWeather.snow = forecastDataDays[day].dayProbabilityOfSnow;
 				forecastWeather.feelsLikeTemp = forecastDataDays[day].dayMaxFeelsLikeTemp;
 
-<<<<<<< HEAD
 				/*
 				 * Pass on full details, so they can be used in custom templates
 				 * Note the units of the supplied data when using this (see top of file)
 				 */
-=======
-				// Pass on full details, so they can be used in custom templates
-				// Note the units of the supplied data when using this (see top of file)
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 				forecastWeather.rawData = forecastDataDays[day];
 
 				dailyForecasts.push(forecastWeather);
@@ -291,17 +234,11 @@ WeatherProvider.register("ukmetofficedatahub", {
 		this.fetchedLocationName = name;
 	},
 
-<<<<<<< HEAD
 	/*
 	 * Match the Met Office "significant weather code" to a weathericons.css icon
 	 * Use: https://metoffice.apiconnect.ibmcloud.com/metoffice/production/node/264
 	 * and: https://erikflowers.github.io/weather-icons/
 	 */
-=======
-	// Match the Met Office "significant weather code" to a weathericons.css icon
-	// Use: https://metoffice.apiconnect.ibmcloud.com/metoffice/production/node/264
-	// and: https://erikflowers.github.io/weather-icons/
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	convertWeatherType (weatherType) {
 		const weatherTypes = {
 			0: "night-clear",

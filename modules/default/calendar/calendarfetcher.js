@@ -56,11 +56,7 @@ const CalendarFetcher = function (url, reloadInterval, excludedEvents, maximumEn
 
 				try {
 					data = ical.parseICS(responseData);
-<<<<<<< HEAD
 					Log.debug(`parsed data=${JSON.stringify(data, null, 2)}`);
-=======
-					Log.debug(`parsed data=${JSON.stringify(data)}`);
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					events = CalendarFetcherUtils.filterEvents(data, {
 						excludedEvents,
 						includePastEvents,

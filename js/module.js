@@ -1,26 +1,16 @@
 /* global Class, cloneObject, Loader, MMSocket, nunjucks, Translator */
 
-<<<<<<< HEAD
 /*
  * Module Blueprint.
-=======
-/* Module Blueprint.
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
  * @typedef {Object} Module
  */
 const Module = Class.extend({
 
-<<<<<<< HEAD
 	/**
 	 ********************************************************
 	 * All methods (and properties) below can be subclassed. *
 	 ********************************************************
 	 */
-=======
-	/*********************************************************
-	 * All methods (and properties) below can be subclassed. *
-	 *********************************************************/
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 	// Set the minimum MagicMirror² module version for this module.
 	requiresVersion: "2.0.0",
@@ -31,7 +21,6 @@ const Module = Class.extend({
 	// Timer reference used for showHide animation callbacks.
 	showHideTimer: null,
 
-<<<<<<< HEAD
 	/*
 	 * Array to store lockStrings. These strings are used to lock
 	 * visibility when hiding and showing module.
@@ -43,15 +32,6 @@ const Module = Class.extend({
 	 * This should not be referenced directly.
 	 * Use the nunjucksEnvironment() to get it.
 	 */
-=======
-	// Array to store lockStrings. These strings are used to lock
-	// visibility when hiding and showing module.
-	lockStrings: [],
-
-	// Storage of the nunjucks Environment,
-	// This should not be referenced directly.
-	// Use the nunjucksEnvironment() to get it.
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	_nunjucksEnvironment: null,
 
 	/**
@@ -216,17 +196,11 @@ const Module = Class.extend({
 		Log.log(`${this.name} is resumed.`);
 	},
 
-<<<<<<< HEAD
 	/**
 	 ********************************************
 	 * The methods below don't need subclassing. *
 	 ********************************************
 	 */
-=======
-	/*********************************************
-	 * The methods below don't need subclassing. *
-	 *********************************************/
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 	/**
 	 * Set the module data.

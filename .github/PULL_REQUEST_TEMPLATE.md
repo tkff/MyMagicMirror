@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 Hello and thank you for wanting to contribute to the MagicMirror² project!
-=======
-Hello and thank you for wanting to contribute to the MagicMirror² project
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 **Please make sure that you have followed these 4 rules before submitting your Pull Request:**
 

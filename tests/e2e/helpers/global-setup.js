@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const os = require("node:os");
 const fs = require("node:fs");
 const jsdom = require("jsdom");
@@ -16,10 +15,6 @@ const sampleCss = [
 var indexData = [];
 var cssData = [];
 
-=======
-const jsdom = require("jsdom");
-
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 exports.startApplication = async (configFilename, exec) => {
 	jest.resetModules();
 	if (global.app) {
@@ -31,10 +26,7 @@ exports.startApplication = async (configFilename, exec) => {
 	} else {
 		process.env.MM_CONFIG_FILE = configFilename;
 	}
-<<<<<<< HEAD
 	process.env.mmTestMode = "true";
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	if (exec) exec;
 	global.app = require("../../../js/app");
 
@@ -69,20 +61,12 @@ exports.getDocument = () => {
 	});
 };
 
-<<<<<<< HEAD
 exports.waitForElement = (selector, ignoreValue = "", timeout = 0) => {
 	return new Promise((resolve) => {
 		let oldVal = "dummy12345";
 		let element = null;
 		const interval = setInterval(() => {
 			element = document.querySelector(selector);
-=======
-exports.waitForElement = (selector, ignoreValue = "") => {
-	return new Promise((resolve) => {
-		let oldVal = "dummy12345";
-		const interval = setInterval(() => {
-			const element = document.querySelector(selector);
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			if (element) {
 				let newVal = element.textContent;
 				if (newVal === oldVal) {
@@ -97,15 +81,12 @@ exports.waitForElement = (selector, ignoreValue = "") => {
 				}
 			}
 		}, 100);
-<<<<<<< HEAD
 		if (timeout !== 0) {
 			setTimeout(() => {
 				if (interval) clearInterval(interval);
 				resolve(null);
 			}, timeout);
 		}
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	});
 };
 
@@ -133,7 +114,6 @@ exports.testMatch = async (element, regex) => {
 	expect(elem.textContent).toMatch(regex);
 	return true;
 };
-<<<<<<< HEAD
 
 exports.fixupIndex = async () => {
 	// read and save the git level index file
@@ -165,5 +145,3 @@ exports.restoreIndex = async () => {
 		await fs.promises.writeFile(cssFile, cssData, { flush: true });
 	}
 };
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67

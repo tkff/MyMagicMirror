@@ -1,6 +1,5 @@
 /* global WeatherProvider, WeatherObject */
 
-<<<<<<< HEAD
 /*
  * This class is a provider for Weatherbit,
  * see https://www.weatherbit.io/
@@ -11,14 +10,6 @@ WeatherProvider.register("weatherbit", {
 	 * Set the name of the provider.
 	 * Not strictly required, but helps for debugging.
 	 */
-=======
-/* This class is a provider for Weatherbit,
- * see https://www.weatherbit.io/
- */
-WeatherProvider.register("weatherbit", {
-	// Set the name of the provider.
-	// Not strictly required, but helps for debugging.
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	providerName: "Weatherbit",
 
 	// Set the default config properties that is specific to this provider

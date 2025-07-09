@@ -1,29 +1,17 @@
 {
-<<<<<<< HEAD
 	"LOADING": "Laadimine…",
-=======
-	"LOADING": "Laen …",
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 
 	"DAYBEFOREYESTERDAY": "Üleeile",
 	"YESTERDAY": "Eile",
 	"TODAY": "Täna",
 	"TOMORROW": "Homme",
 	"DAYAFTERTOMORROW": "Ülehomme",
-<<<<<<< HEAD
 	"RUNNING": "Lõpeb",
 	"EMPTY": "Eelolevaid sündmusi pole.",
 	"WEEK": "Nädal {weekNumber}",
 
 	"N": "Põhi",
 	"NNE": "Põhjakirre",
-=======
-	"RUNNING": "Teoksil",
-	"EMPTY": "Pole tulevasi sündmuseid.",
-
-	"N": "Põhi",
-	"NNE": "Põhikirre",
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	"NE": "Kirre",
 	"ENE": "Idakirre",
 	"E": "Ida",
@@ -39,7 +27,6 @@
 	"NW": "Loe",
 	"NNW": "Põhjaloe",
 
-<<<<<<< HEAD
 	"FEELS": "Tajutav temperatuur {DEGREE}",
 	"PRECIP_POP": "Sademete tõenäosus",
 	"PRECIP_AMOUNT": "Sademete hulk",
@@ -60,10 +47,4 @@
 	"UPDATE_NOTIFICATION_DONE": "{MODULE_NAME} moodul uuendati edukalt",
 	"UPDATE_NOTIFICATION_ERROR": "{MODULE_NAME} mooduli uuendamine ebaõnnestus",
 	"UPDATE_NOTIFICATION_NEED-RESTART": "Palun taaskäivitage MagicMirror."
-=======
-	"UPDATE_NOTIFICATION": "MagicMirror²´le uuendus saadaval.",
-	"UPDATE_NOTIFICATION_MODULE": "Uuendus saadaval {MODULE_NAME} moodulile.",
-	"UPDATE_INFO_SINGLE": "Praegune paigaldus on {COMMIT_COUNT} commit tagapool {BRANCH_NAME} harul.",
-	"UPDATE_INFO_MULTIPLE": "Praegune paigaldus on {COMMIT_COUNT} commits tagapool {BRANCH_NAME} harul."
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 }

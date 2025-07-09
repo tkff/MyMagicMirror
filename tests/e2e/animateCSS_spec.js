@@ -5,11 +5,7 @@ describe("AnimateCSS integration Test", () => {
 	let testConfigFile = "tests/configs/modules/compliments/compliments_animateCSS.js";
 	// define config file to fallback to default: wrong animation name (must return no animation)
 	let testConfigFileFallbackToDefault = "tests/configs/modules/compliments/compliments_animateCSS_fallbackToDefault.js";
-<<<<<<< HEAD
 	// define config file with an inverted name animation : in for out and vice versa (must return no animation)
-=======
-	// define config file with an inversed name animation : in for out and vice versa (must return no animation)
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	let testConfigFileInvertedAnimationName = "tests/configs/modules/compliments/compliments_animateCSS_invertedAnimationName.js";
 	// define config file with no animation defined
 	let testConfigByDefault = "tests/configs/modules/compliments/compliments_anytime.js";

@@ -119,11 +119,7 @@ const WeatherProvider = Class.extend({
 			return JSON.parse(data);
 		}
 		const useCorsProxy = typeof this.config.useCorsProxy !== "undefined" && this.config.useCorsProxy;
-<<<<<<< HEAD
 		return performWebRequest(url, type, useCorsProxy, requestHeaders, expectedResponseHeaders, config.basePath);
-=======
-		return performWebRequest(url, type, useCorsProxy, requestHeaders, expectedResponseHeaders);
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	}
 });
 

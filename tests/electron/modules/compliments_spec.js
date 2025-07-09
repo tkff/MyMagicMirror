@@ -7,9 +7,9 @@ describe("Compliments module", () => {
 	 * @param {Array} complimentsArray The array of compliments.
 	 * @returns {boolean} result
 	 */
-	const doTest = async (complimentsArray) => {
-		await helpers.getElement(".compliments");
-		const elem = await helpers.getElement(".module-content");
+	const doTest = async (complimentsArray, state = "visible") => {
+		await helpers.getElement(".compliments", state);
+		const elem = await helpers.getElement(".module-content", state);
 		expect(elem).not.toBeNull();
 		expect(complimentsArray).toContain(await elem.textContent());
 		return true;
@@ -34,6 +34,11 @@ describe("Compliments module", () => {
 			await helpers.startApplication("tests/configs/modules/compliments/compliments_parts_day.js", "01 Oct 2022 20:00:00 GMT");
 			await expect(doTest(["Hello There", "Good Evening", "Evening test"])).resolves.toBe(true);
 		});
+
+		it("doesnt show evening compliments during the day when the other parts of day are not set", async () => {
+			await helpers.startApplication("tests/configs/modules/compliments/compliments_evening.js", "01 Oct 2022 08:00:00 GMT");
+			await expect(doTest([""], "attached")).resolves.toBe(true);
+		});
 	});
 
 	describe("Feature date in compliments module", () => {
@@ -43,7 +48,6 @@ describe("Compliments module", () => {
 				await expect(doTest(["Happy new year!"])).resolves.toBe(true);
 			});
 		});
-<<<<<<< HEAD
 
 		describe("Test only custom date events shown with new property", () => {
 			it("shows 'Special day message' on May 6", async () => {
@@ -96,7 +100,5 @@ describe("Compliments module", () => {
 				await expect(doTest(["test in morning"])).resolves.toBe(true);
 			});
 		});
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	});
 });

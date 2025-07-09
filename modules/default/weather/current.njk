@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 {% macro humidity() %}
     {% if current.humidity %}
         <span class="humidity"><span>{{ current.humidity | decimalSymbol }}</span><sup>&nbsp;<i class="wi wi-humidity humidity-icon"></i></sup></span>
     {% endif %}
 {% endmacro %}
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 {% if current %}
     {% if not config.onlyTemp %}
         <div class="normal medium">
@@ -15,12 +12,7 @@
                 {% if config.showWindDirection %}
                     <sup>
                         {% if config.showWindDirectionAsArrow %}
-<<<<<<< HEAD
                             <i class="fas fa-long-arrow-alt-down" style="transform:rotate({{ current.windFromDirection }}deg)"></i>
-=======
-                            <i class="fas fa-long-arrow-alt-down"
-                               style="transform:rotate({{ current.windFromDirection }}deg)"></i>
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
                         {% else %}
                             {{ current.cardinalWindDirection() | translate }}
                         {% endif %}
@@ -28,13 +20,8 @@
                     </sup>
                 {% endif %}
             </span>
-<<<<<<< HEAD
             {% if config.showHumidity === "wind" %}
                 {{ humidity() }}
-=======
-            {% if config.showHumidity and current.humidity %}
-                <span>{{ current.humidity | decimalSymbol }}</span><sup>&nbsp;<i class="wi wi-humidity humidity-icon"></i></sup>
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
             {% endif %}
             {% if config.showSun %}
                 <span class="wi dimmed wi-{{ current.nextSunAction() }}"></span>
@@ -54,7 +41,6 @@
             {% endif %}
         </div>
     {% endif %}
-<<<<<<< HEAD
     <div class="large">
         {% if config.showIndoorTemperature and indoor.temperature or config.showIndoorHumidity and indoor.humidity %}
             <span class="medium fas fa-home"></span>
@@ -79,36 +65,15 @@
         <span class="light bright">{{ current.temperature | roundValue | unit("temperature") | decimalSymbol }}</span>
         {% if config.showHumidity === "temp" %}
             <span class="medium bright">{{ humidity() }}</span>
-=======
-    <div class="large light">
-        <span class="wi weathericon wi-{{ current.weatherType }}"></span>
-        <span class="bright">{{ current.temperature | roundValue | unit("temperature") | decimalSymbol }}</span>
-    </div>
-    <div class="normal light indoor">
-        {% if config.showIndoorTemperature and indoor.temperature %}
-            <div>
-                <span class="fas fa-home"></span>
-                <span class="bright">{{ indoor.temperature | roundValue | unit("temperature") | decimalSymbol }}</span>
-            </div>
-        {% endif %}
-        {% if config.showIndoorHumidity and indoor.humidity %}
-            <div>
-                <span class="fas fa-tint"></span>
-                <span class="bright">{{ indoor.humidity | roundValue | unit("humidity") | decimalSymbol }}</span>
-            </div>
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
         {% endif %}
     </div>
     {% if (config.showFeelsLike or config.showPrecipitationAmount or config.showPrecipitationProbability) and not config.onlyTemp %}
         <div class="normal medium feelslike">
             {% if config.showFeelsLike %}
                 <span class="dimmed">
-<<<<<<< HEAD
                     {% if config.showHumidity === "feelslike" %}
                         {{ humidity() }}
                     {% endif %}
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
                     {{ "FEELS" | translate({DEGREE: current.feelsLike() | roundValue | unit("temperature") | decimalSymbol }) }}
                 </span>
                 <br />
@@ -126,12 +91,9 @@
             {% endif %}
         </div>
     {% endif %}
-<<<<<<< HEAD
     {% if config.showHumidity === "below" %}
         <span class="medium dimmed">{{ humidity() }}</span>
     {% endif %}
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 {% else %}
     <div class="dimmed light small">{{ "LOADING" | translate }}</div>
 {% endif %}

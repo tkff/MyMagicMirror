@@ -1,6 +1,5 @@
 /* global WeatherProvider, WeatherObject, WeatherUtils */
 
-<<<<<<< HEAD
 /*
  * This class is a provider for UK Met Office Datapoint,
  * see https://www.metoffice.gov.uk/
@@ -12,15 +11,6 @@ WeatherProvider.register("ukmetoffice", {
 	 * This isn't strictly necessary, since it will fallback to the provider identifier
 	 * But for debugging (and future alerts) it would be nice to have the real name.
 	 */
-=======
-/* This class is a provider for UK Met Office Datapoint,
- * see https://www.metoffice.gov.uk/
- */
-WeatherProvider.register("ukmetoffice", {
-	// Set the name of the provider.
-	// This isn't strictly necessary, since it will fallback to the provider identifier
-	// But for debugging (and future alerts) it would be nice to have the real name.
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	providerName: "UK Met Office",
 
 	// Set the default config properties that is specific to this provider
@@ -35,16 +25,11 @@ WeatherProvider.register("ukmetoffice", {
 		this.fetchData(this.getUrl("3hourly"))
 			.then((data) => {
 				if (!data || !data.SiteRep || !data.SiteRep.DV || !data.SiteRep.DV.Location || !data.SiteRep.DV.Location.Period || data.SiteRep.DV.Location.Period.length === 0) {
-<<<<<<< HEAD
 
 					/*
 					 * Did not receive usable new data.
 					 * Maybe this needs a better check?
 					 */
-=======
-					// Did not receive usable new data.
-					// Maybe this needs a better check?
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					return;
 				}
 
@@ -64,16 +49,11 @@ WeatherProvider.register("ukmetoffice", {
 		this.fetchData(this.getUrl("daily"))
 			.then((data) => {
 				if (!data || !data.SiteRep || !data.SiteRep.DV || !data.SiteRep.DV.Location || !data.SiteRep.DV.Location.Period || data.SiteRep.DV.Location.Period.length === 0) {
-<<<<<<< HEAD
 
 					/*
 					 * Did not receive usable new data.
 					 * Maybe this needs a better check?
 					 */
-=======
-					// Did not receive usable new data.
-					// Maybe this needs a better check?
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					return;
 				}
 
@@ -116,16 +96,11 @@ WeatherProvider.register("ukmetoffice", {
 			if (periodDate.isSameOrAfter(moment.utc().startOf("day"))) {
 				// check this is the period we want, after today the diff will be -ve
 				if (moment().diff(periodDate, "minutes") > 0) {
-<<<<<<< HEAD
 
 					/*
 					 * loop round the reports looking for the one we are in
 					 * $ value specifies the time in minutes-of-the-day: 0, 180, 360,...1260
 					 */
-=======
-					// loop round the reports looking for the one we are in
-					// $ value specifies the time in minutes-of-the-day: 0, 180, 360,...1260
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 					for (const rep of period.Rep) {
 						const p = rep.$;
 						if (timeInMins >= p && timeInMins - 180 < p) {
@@ -155,15 +130,10 @@ WeatherProvider.register("ukmetoffice", {
 	generateWeatherObjectsFromForecast (forecasts) {
 		const days = [];
 
-<<<<<<< HEAD
 		/*
 		 * loop round the (5) periods getting the data
 		 * for each period array, Day is [0], Night is [1]
 		 */
-=======
-		// loop round the (5) periods getting the data
-		// for each period array, Day is [0], Night is [1]
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		for (const period of forecasts.SiteRep.DV.Location.Period) {
 			const weather = new WeatherObject();
 

@@ -49,12 +49,8 @@ const NodeHelper = Class.extend({
 		this.path = path;
 	},
 
-<<<<<<< HEAD
 	/*
 	 * sendSocketNotification(notification, payload)
-=======
-	/* sendSocketNotification(notification, payload)
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	 * Send a socket notification to the node helper.
 	 *
 	 * argument notification string - The identifier of the notification.
@@ -64,12 +60,8 @@ const NodeHelper = Class.extend({
 		this.io.of(this.name).emit(notification, payload);
 	},
 
-<<<<<<< HEAD
 	/*
 	 * setExpressApp(app)
-=======
-	/* setExpressApp(app)
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	 * Sets the express app object for this module.
 	 * This allows you to host files from the created webserver.
 	 *
@@ -81,12 +73,8 @@ const NodeHelper = Class.extend({
 		app.use(`/${this.name}`, express.static(`${this.path}/public`));
 	},
 
-<<<<<<< HEAD
 	/*
 	 * setSocketIO(io)
-=======
-	/* setSocketIO(io)
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	 * Sets the socket io object for this module.
 	 * Binds message receiver.
 	 *
@@ -98,26 +86,9 @@ const NodeHelper = Class.extend({
 		Log.log(`Connecting socket for: ${this.name}`);
 
 		io.of(this.name).on("connection", (socket) => {
-<<<<<<< HEAD
 			// register catch all.
 			socket.onAny((notification, payload) => {
 				this.socketNotificationReceived(notification, payload);
-=======
-			// add a catch all event.
-			const onevent = socket.onevent;
-			socket.onevent = function (packet) {
-				const args = packet.data || [];
-				onevent.call(this, packet); // original call
-				packet.data = ["*"].concat(args);
-				onevent.call(this, packet); // additional call to catch-all
-			};
-
-			// register catch all.
-			socket.on("*", (notification, payload) => {
-				if (notification !== "*") {
-					this.socketNotificationReceived(notification, payload);
-				}
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			});
 		});
 	}

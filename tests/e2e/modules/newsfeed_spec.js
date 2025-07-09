@@ -1,17 +1,7 @@
-<<<<<<< HEAD
 const fs = require("node:fs");
 const helpers = require("../helpers/global-setup");
 
 const runTests = async () => {
-=======
-const helpers = require("../helpers/global-setup");
-
-describe("Newsfeed module", () => {
-	afterAll(async () => {
-		await helpers.stopApplication();
-	});
-
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 	describe("Default configuration", () => {
 		beforeAll(async () => {
 			await helpers.startApplication("tests/configs/modules/newsfeed/default.js");
@@ -81,7 +71,6 @@ describe("Newsfeed module", () => {
 			expect(elem.textContent).toContain("No news at the moment.");
 		});
 	});
-<<<<<<< HEAD
 };
 
 describe("Newsfeed module", () => {
@@ -106,6 +95,4 @@ describe("Newsfeed module located in config directory", () => {
 	});
 
 	runTests();
-=======
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 });

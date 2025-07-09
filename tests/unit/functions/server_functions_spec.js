@@ -19,11 +19,7 @@ describe("server_functions tests", () => {
 				},
 				text: fetchResponseHeadersText
 			};
-<<<<<<< HEAD
 
-=======
-			// eslint-disable-next-line
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			fetch = jest.fn();
 			fetch.mockImplementation(() => fetchResponse);
 
@@ -49,11 +45,7 @@ describe("server_functions tests", () => {
 			expect(fetchMock.mock.calls[0][0]).toBe(urlToCall);
 		});
 
-<<<<<<< HEAD
 		it("Forwards Content-Type if json", async () => {
-=======
-		it("Forewards Content-Type if json", async () => {
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			fetchResponseHeadersGet.mockImplementation(() => "json");
 
 			await cors(request, corsResponse);
@@ -66,11 +58,7 @@ describe("server_functions tests", () => {
 			expect(corsResponse.set.mock.calls[0][1]).toBe("json");
 		});
 
-<<<<<<< HEAD
 		it("Forwards Content-Type if xml", async () => {
-=======
-		it("Forewards Content-Type if xml", async () => {
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 			fetchResponseHeadersGet.mockImplementation(() => "xml");
 
 			await cors(request, corsResponse);

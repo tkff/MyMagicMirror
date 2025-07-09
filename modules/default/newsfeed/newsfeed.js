@@ -38,11 +38,7 @@ Module.register("newsfeed", {
 
 	getUrlPrefix (item) {
 		if (item.useCorsProxy) {
-<<<<<<< HEAD
 			return `${location.protocol}//${location.host}${config.basePath}cors?url=`;
-=======
-			return `${location.protocol}//${location.host}/cors?url=`;
->>>>>>> 0893f99a1a80b2de5062da6b907e3b78e29f9f67
 		} else {
 			return "";
 		}
@@ -61,7 +57,7 @@ Module.register("newsfeed", {
 	// Define required translations.
 	getTranslations () {
 		// The translations for the default modules are defined in the core translation files.
-		// Therefor we can just return false. Otherwise we should have returned a dictionary.
+		// Therefore we can just return false. Otherwise we should have returned a dictionary.
 		// If you're trying to build your own module including translations, check out the documentation.
 		return false;
 	},
@@ -182,6 +178,18 @@ Module.register("newsfeed", {
 	},
 
 	/**
+	 * Gets a feed property by name
+	 * @param {object} feed A feed object.
+	 * @param {string} property The name of the property.
+	 */
+	getFeedProperty (feed, property) {
+		let res = this.config[property];
+		const f = this.config.feeds.find((feedItem) => feedItem.url === feed);
+		if (f && f[property]) res = f[property];
+		return res;
+	},
+
+	/**
 	 * Generate an ordered list of items for this configured module.
 	 * @param {object} feeds An object with feeds returned by the node helper.
 	 */
@@ -192,7 +200,7 @@ Module.register("newsfeed", {
 			if (this.subscribedToFeed(feed)) {
 				for (let item of feedItems) {
 					item.sourceTitle = this.titleForFeed(feed);
-					if (!(this.config.ignoreOldItems && Date.now() - new Date(item.pubdate) > this.config.ignoreOlderThan)) {
+					if (!(this.getFeedProperty(feed, "ignoreOldItems") && Date.now() - new Date(item.pubdate) > this.getFeedProperty(feed, "ignoreOlderThan"))) {
 						newsItems.push(item);
 					}
 				}
