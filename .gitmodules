@@ -16,3 +16,7 @@
 [submodule "modules/MMM-Wallpaper"]
 	path = modules/MMM-Wallpaper
 	url = https://github.com/kolbyjack/MMM-Wallpaper.git
+[submodule "modules/MMM-Hsl-stops/"]
+	path = modules/MMM-Hsl-stops/
+	url = https://github.com/0EQUALIZERO/MMM-Hsl-stops.git
+
