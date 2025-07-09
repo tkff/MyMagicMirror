@@ -59,7 +59,7 @@
 		"lint-staged": "^16.1.2",
 		"playwright": "^1.44.1",
 		"prettier": "^3.2.4",
-		"sinon": "^20.0.0",
+		"sinon": "^21.0.0",
 		"stylelint": "^16.2.0",
 		"stylelint-config-standard": "^38.0.0",
 		"stylelint-prettier": "^5.0.0",
